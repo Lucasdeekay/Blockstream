@@ -1,0 +1,182 @@
+{% extends 'useraccount/admin.html' %}
+
+{% load static %}
+
+{% block transaction %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Admin Manager - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+
+<div id="page-content-wrapper" class="dashboard-content">
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="recent-transaction-history">
+                                <div class="col-xl-12">
+                                    <div class="crypto-wallet">
+                                        <h2 class="crypto-stitle">Verify Transactions</h2>
+                                        <div class="rth-table" id="depoTable">
+                                            <table class="table cryptodash-tableA col-12">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-3"><b>Amount</b></th>
+                                                    <th class="col-3"><b>Mode</b></th>
+                                                    <th class="col-3"><b>Date Created</b></th>
+                                                    <th class="col-3" colspan="2"><b></b></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if not deposits %}
+                                                <tr class="border-top">
+                                                    <td class="col-3" colspan="4">No Deposit available</td>
+                                                </tr>
+                                                {% else %}
+                                                {% for data in deposits %}
+                                                <tr class="border-top">
+                                                    <td class="col-3">${{ data.profit }}</td>
+                                                    <td class="col-3">{{ data.mode }}</td>
+                                                    <td class="col-3">{{ data.date }}</td>
+                                                    <td class="col-3"><a href="{% url 'Useraccount:approve' 'deposit' data.id %}"
+                                                                         class="btn btn-success">Approve</a></td>
+                                                    <td class="col-3"><a href="{% url 'Useraccount:decline' 'deposit' data.id %}"
+                                                                         class="btn btn-danger">Danger</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if deposits_obj.has_previous %}
+                                                    <li><a href="?page={{ deposits_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ deposits_obj.number }} of {{ deposits_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if deposits_obj.has_next %}
+                                                    <li><a href="?page={{ deposits_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <div class="rth-table" id="withTable">
+                                            <table class="table cryptodash-tableA col-12">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-3"><b>Amount</b></th>
+                                                    <th class="col-3"><b>Mode</b></th>
+                                                    <th class="col-3"><b>Date Created</b></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if not withdrawals %}
+                                                <tr class="border-top">
+                                                    <td class="col-3" colspan="4">No Withdrawal available</td>
+                                                </tr>
+                                                {% else %}
+                                                {% for data in withdrawals %}
+                                                <tr class="border-top">
+                                                    <td class="col-3">${{ data.profit }}</td>
+                                                    <td class="col-3">{{ data.mode }}</td>
+                                                    <td class="col-3">{{ data.date }}</td>
+                                                    <td class="col-3"><a href="{% url 'Useraccount:approve' 'withdrawal' data.id %}"
+                                                                         class="btn btn-success">Approve</a></td>
+                                                    <td class="col-3"><a href="{% url 'Useraccount:decline' 'withdrawal' data.id %}"
+                                                                         class="btn btn-danger">Danger</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if withdrawals_obj.has_previous %}
+                                                    <li><a href="?page={{ withdrawals_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ withdrawals_obj.number }} of {{ withdrawals_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if withdrawals_obj.has_next %}
+                                                    <li><a href="?page={{ withdrawals_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <div class="rth-table" id="cliTable">
+                                            <table class="table cryptodash-tableA col-12">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-2"><b>Clientele</b></th>
+                                                    <th class="col-2"><b>Plan</b></th>
+                                                    <th class="col-2"><b>Amount</b></th>
+                                                    <th class="col-2"><b>Profit</b></th>
+                                                    <th class="col-2"><b>Add Profit</b></th>
+                                                    <th class="col-2"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if not active_investments %}
+                                                <tr class="border-top">
+                                                    <td class="col-3" colspan="4">No active investment available</td>
+                                                </tr>
+                                                {% else %}
+                                                {% for data in active_investments %}
+                                                <tr class="border-top">
+                                                    <td class="col-2">${{ data.clientele }}</td>
+                                                    <td class="col-2">{{ data.plan }}</td>
+                                                    <td class="col-2">{{ data.amount }}</td>
+                                                    <td class="col-2">{{ data.profit }}</td>
+                                                    <td class="col-2">
+                                                        <input type="number" name="{{ data.id }}" value="{{ data.amount }}">
+                                                    </td>
+                                                    <td class="col-2"><a href="{% url 'Useraccount:update_profit' data.id %}"
+                                                                         class="btn btn-success">Update</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if active_investment_obj.has_previous %}
+                                                    <li><a href="?page={{ active_investment_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ active_investment_obj.number }} of {{ active_investment_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if active_investment_obj.has_next %}
+                                                    <li><a href="?page={{ active_investment_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

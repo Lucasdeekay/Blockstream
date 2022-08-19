@@ -1,0 +1,93 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block settings %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Account Settings - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+{% block main %}
+<div id="page-content-wrapper" class="dashboard-content">
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="recent-transaction-history">
+                                <div class="col-xl-12">
+                                    <div class="crypto-wallet">
+                                        <div class="metismenu col-12 row" align="center">
+                                            <div class="col-xl-6 tr-nav is-active" id="personal-btn">
+                                                <a><b>Personal Settings</b></a>
+                                            </div>
+                                            <div class="col-xl-6 tr-nav" id="security-btn">
+                                                <a><b>Password/Security</b></a>
+                                            </div>
+                                        </div>
+                                        <div class="rth-table" id="personal-sec">
+                                            <div class="col-xl-12">
+                                                <div class="crypto-form-wrapper">
+                                                    <h3>Update Your Profile</h3>
+                                                    <form action="" method="post" class="crypto-form">
+                                                        {%csrf_token %}
+                                                        <div style="display:flex; flex-wrap:wrap">
+                                                            <div class="cfi col-xl-6">
+                                                            <label for="fullName">Full Name</label>
+                                                            <input type="text" name="full_name" id="fullName"
+                                                                   placeholder="Enter your full name"
+                                                                   value="{{ clientele.full_name}}">
+                                                        </div>
+                                                            <div class="cfi col-xl-6">
+                                                                <label for="phone">Enter Your Email Address</label>
+                                                                <input type="text" name="phone_no" id="phone"
+                                                                       placeholder="Enter your phone numer"
+                                                                        value="{{ clientele.phone_no}}">
+                                                            </div>
+                                                            <div class="cfi col-xl-6">
+                                                                <label for="email">Enter Your Email Address</label>
+                                                                <input type="text" name="email" id="email"
+                                                                       placeholder="Enter your email address"
+                                                                        value="{{ clientele.email}}">
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" value="updateProfile"
+                                                                name="submit" class="cfi-button">
+                                                            Submit
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="rth-table" id="security-sec">
+                                            <div class="col-xl-12">
+                                                <div class="crypto-form-wrapper">
+                                                    <h3>Update Your Password</h3>
+                                                    <form action="" method="post" class="crypto-form col-xl-6">
+                                                        {%csrf_token %}
+                                                        {% include 'useraccount/django_form.html' with form=form %}
+                                                        <button type="submit" value="updatePassword"
+                                                                name="submit" class="cfi-button">
+                                                            Update Password
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

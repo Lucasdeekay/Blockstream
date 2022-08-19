@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="{% static 'sitehome/css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'sitehome/css/main.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'useraccount/assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'useraccount/assets/img/favicon.png' %}">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+
+	{% block title %}
+	{% endblock %}
+
+</head>
+<body>
+<!-- sign form -->
+<div class="sign">
+	<!-- particles -->
+	<div id="canvas" class="sign__particles"></div>
+	<!-- end particles -->
+
+	<div class="sign__content">
+
+		{% block body %}
+		{% endblock %}
+
+	</div>
+</div>
+<!-- end sign form -->
+
+<!-- JS -->
+<script src="{% static 'sitehome/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'sitehome/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'sitehome/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'sitehome/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'sitehome/js/three.min.js' %}"></script>
+<script src="{% static 'sitehome/js/vanta.net.min.js' %}"></script>
+<script src="{% static 'sitehome/js/main.js' %}"></script>
+</body>
+
+</html>

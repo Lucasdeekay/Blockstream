@@ -1,0 +1,35 @@
+{% extends 'sitehome/signup.html' %}
+
+{% load static %}
+
+<!--Title Block-->
+{% block title %}
+<title>Register - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+{% block body %}
+
+<!-- form -->
+<form action="#" class="sign__form" method="post">
+    {% csrf_token %}
+    <a href="{% url 'SiteHome:home' %}"  class="sign__logo" style="font-size:25px; color: black">
+            <img src="{% static 'sitehome/icon/favicon.png' %}" alt="" style="height:60px">
+            Blockstream
+        </a>
+
+    {% include 'sitehome/django_form.html' with form=form %}
+    <div class="col-12">
+        <small class="mb-2">This field is optional <small style="color: red">*</small></small>
+        <input type="text" name="referer" placeholder="Referer" class="form__input" id="id_referer">
+    </div>
+
+    <button class="btn" type="submit">Register</button>
+</form>
+<!-- end form -->
+
+<div class="sign__box">
+    <p>Already have an account? <a href="{% url 'UserAccount:login' %}">Login</a></p>
+</div>
+{% endblock %}
+

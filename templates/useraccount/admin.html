@@ -1,0 +1,70 @@
+{% extends 'useraccount/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<!--Header Section-->
+<header class="cryptodash-header cdh-light">
+    <nav class="navbar navbar-expand-lg cryptodash-nav">
+        <a class="navbar-brand" href="{% url 'UserAccount:dashboard' %}">
+            <div class="logo" style="width:30px; height:62px; padding-top:10px">
+                <img src="{% static 'useraccount/assets/img/favicon.png' %}" alt="">
+                Blockstream
+            </div>
+        </a>
+        <a id="sideNav-toggle" href=""><span id="main_icon" class="fa fa-bars"></span></a>
+        <div class="collapse navbar-collapse right-nav mx-3" id="navbarTogglerDemo02">
+            <h3>Admin Manager</h3>
+        </div>
+    </nav>
+</header>
+<!--End Header Section-->
+
+<!--Main Section-->
+<div class="cryptodash-full-wrapper">
+    <div class="crypto-dash-sidenav">
+        <div id="sideNavWrapper" class="active">
+
+            <div id="sidebar-wrapper">
+                <nav class="sidebar-nav">
+                    <ul class="metismenu" id="menu3">
+                        <li class="is-active" id="depoBtn">
+                            <a>
+                                <i class="fa fa-money" aria-hidden="true"></i>
+                                <span class="msm-text">Deposit</span>
+                            </a>
+                        </li>
+                        <li id="withBtn">
+                            <a>
+                                <i class="fa fa-google-wallet" aria-hidden="true"></i>
+                                <span class="msm-text">Withdraw Fund</span>
+                            </a>
+                        </li>
+                        <li id="cliBtn">
+                            <a>
+                                <i class="fa fa-dollar" aria-hidden="true"></i>
+                                <span class="msm-text">Clients Profit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <i class="fa fa-dollar" aria-hidden="true"></i>
+                                <span class="msm-text">Logout</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'UserAccount:logout' %}">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                <span class="msm-text">Sign Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            {% block main %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<!--End Main Section-->
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+
+{% for hidden_field in form.hidden_fields %}
+{{ hidden_field }}
+{% endfor %}
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+    <small class="m-2" style="color:red">{{ error }}</small>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for field in form.visible_fields %}
+<div class="col-12">
+        {% if form.is_bound %}
+        {% if field.errors %}
+        {% render_field field class="form__input is-invalid" %}
+    {% for error in field.errors %}
+        {{ error }}
+    {% endfor %}
+        {% else %}
+        {% render_field field class="form__input is-valid" %}
+        {% endif %}
+        {% else %}
+        {% if field.help_text %}
+        <small class="mb-2">{{ field.help_text }} <small style="color: red">*</small></small>
+        {% endif %}
+        {% render_field field class="form__input" %}
+        {% endif %}
+</div>
+{% endfor %}

@@ -1,0 +1,485 @@
+{% extends 'sitehome/index.html' %}
+
+{% block title %}
+<title>Home – Blockstream</title>
+{% endblock %}
+
+{% block main %}
+<!-- home -->
+<section class="home home--circle">
+    <!-- particles -->
+    <div id="canvas" class="home__particles"></div>
+    <!-- end particles -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-5 offset-xl-0">
+                <div class="home__content">
+                    <h1 class="home__title">Start Bitcoin mining today!</h1>
+                    <p class="home__text">Many desktop publishing packages and web page editors now use Lorem Ipsum as
+                        their default model text.</p>
+                    <a href="{% url 'UserAccount:register' %}" class="btn btn--shadow">get started</a>
+                </div>
+            </div>
+
+            <div class="col-xl-5 offset-xl-1">
+                <div class="home__content home__content--desk">
+                    <div class="servers">
+                        <div class="servers__title">Server status</div>
+                        <div class="servers__item servers__item--green" title="Online">
+                            Europe - Amsterdam
+                        </div>
+                        <div class="servers__item servers__item--green" title="Online">
+                            China - Hong Kong
+                        </div>
+                        <div class="servers__item servers__item--yellow" title="Unstable">
+                            India - Chennai
+                        </div>
+                        <div class="servers__item servers__item--green" title="Online">
+                            USA - San Jose
+                        </div>
+                        <div class="servers__item servers__item--green" title="Online">
+                            Japan - Tokyo
+                        </div>
+                        <div class="servers__item servers__item--red" title="Offlane">
+                            Brazil - Sao Paulo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end home -->
+
+<!-- services -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                <h2 class="section__title">SmartMine Template</h2>
+                <p class="section__text">All the Lorem Ipsum generators on the <b>Internet</b> tend to repeat predefined
+                    chunks as necessary, making this the first true generator on the Internet.</p>
+            </div>
+            <!-- end section title -->
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl-3">
+                <!-- service -->
+                <div class="service">
+                    <i class="ti-bolt"></i>
+                    <h3 class="service__title">Instant Connection</h3>
+                    <p class="service__text">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered <b>alteration in some form</b>, by injected.</p>
+                </div>
+                <!-- end service -->
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-3">
+                <!-- service -->
+                <div class="service">
+                    <i class="ti-wallet"></i>
+                    <h3 class="service__title">Instant Conclusion</h3>
+                    <p class="service__text">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form, by injected.</p>
+                </div>
+                <!-- end service -->
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-3">
+                <!-- service -->
+                <div class="service">
+                    <i class="ti-stats-up"></i>
+                    <h3 class="service__title">Detailed Statistics</h3>
+                    <p class="service__text">There are many variations of passages of Lorem Ipsum available, but the <a
+                            href="#">majority</a> have suffered alteration in some form, by injected.</p>
+                </div>
+                <!-- end service -->
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-3">
+                <!-- service -->
+                <div class="service">
+                    <i class="ti-harddrives"></i>
+                    <h3 class="service__title">Power Distribution</h3>
+                    <p class="service__text">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form, by injected.</p>
+                </div>
+                <!-- end service -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end services -->
+
+<!-- popular -->
+<section class="section section--border-top">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                <h2 class="section__title">Popular currencies</h2>
+                <p class="section__text">If you are going to use a passage of Lorem Ipsum, you need to be sure there
+                    isn't anything embarrassing hidden in the middle of text.</p>
+            </div>
+            <!-- end section title -->
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--up">Bitcoin</span>
+                    <span class="popular__price">$8861.14 (+1.3%)</span>
+                    <span class="popular__cap">Cap.: $14562176.32</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--up">Ethereum</span>
+                    <span class="popular__price">$240.57 (+4.1%)</span>
+                    <span class="popular__cap">Cap.: $71497612.98</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--down">Startcoin</span>
+                    <span class="popular__price">$161.54 (-0.7%)</span>
+                    <span class="popular__cap">Cap.: $14562176.32</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--up">Litecoin</span>
+                    <span class="popular__price">$58.86 (+2.1%)</span>
+                    <span class="popular__cap">Cap.: $23562176.24</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--down">Dash</span>
+                    <span class="popular__price">$187.54 (-3.2%)</span>
+                    <span class="popular__cap">Cap.: $11562174.12</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--down">Monero</span>
+                    <span class="popular__price">$89.51 (-0.9%)</span>
+                    <span class="popular__cap">Cap.: $10367876.71</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--up">Infinitecoin</span>
+                    <span class="popular__price">134.93 (+5.1%)</span>
+                    <span class="popular__cap">Cap.: $13596476.63</span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="popular">
+                    <span class="popular__name popular__name--up">PrimeCoin</span>
+                    <span class="popular__price">$92.13 (+4.7%)</span>
+                    <span class="popular__cap">Cap.: $10062176.54</span>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <a href="{% url 'UserAccount:register' %}" class="btn btn--center btn--section btn--shadow">get started</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end popular -->
+
+<!-- video -->
+<div class="section section--bg" data-bg="img/section/section-bg2.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- section title -->
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <a class="section__video" href="https://vimeo.com/45830194"><i class="ti-control-play"></i></a>
+                    <h2 class="section__title section__title--white">Why Choose Us?</h2>
+                    <p class="section__text section__text--white">Check out our mining farm setup. To bring you the best
+                        we must hire the best.</p>
+                </div>
+                <!-- end section title -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end video -->
+
+<!-- pricing -->
+<section class="section section--blue">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                <h2 class="section__title">Pricing</h2>
+                <p class="section__text">Various versions have evolved over the years, sometimes by accident, sometimes
+                    on purpose.</p>
+            </div>
+            <!-- end section title -->
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-10 offset-lg-1 col-xl-12 offset-xl-0">
+                <div class="price-wrap">
+                    <!-- price -->
+                    <div class="price">
+                        <h3 class="price__title">Basic Plan</h3>
+                        <div class="price__list">
+                            <li><b>Minimum Deposit:</b>$500</li>
+                            <li><b>Maximum Deposit:</b>$999</li>
+                            <li><b>Duration:</b>2 Weeks</li>
+                        </div>
+                        <span class="price__value">$500</span>
+                        <button class="btn btn--border btn--center" type="button">Buy now</button>
+                    </div>
+                    <!-- end price -->
+
+                    <!-- price -->
+                    <div class="price">
+                        <h3 class="price__title">Silver Plan</h3>
+                        <div class="price__list">
+                            <li><b>Minimum Deposit:</b>$1000</li>
+                            <li><b>Maximum Deposit:</b>$4999</li>
+                            <li><b>Duration:</b>4 Weeks</li>
+                        </div>
+                        <span class="price__value">$1000</span>
+                        <button class="btn btn--border btn--center" type="button">Buy now</button>
+                    </div>
+                    <!-- end price -->
+
+                    <!-- price -->
+                    <div class="price">
+                        <h3 class="price__title">Gold Plan</h3>
+                        <div class="price__list">
+                            <li><b>Minimum Deposit:</b>$5000</li>
+                            <li><b>Maximum Deposit:</b>$9999</li>
+                            <li><b>Duration:</b>3 Months</li>
+                        </div>
+                        <span class="price__value">$5000</span>
+                        <button class="btn btn--border btn--center" type="button">Buy now</button>
+                    </div>
+                    <!-- end price -->
+
+                    <!-- price -->
+                    <div class="price">
+                        <h3 class="price__title">Platinum Plan</h3>
+                        <div class="price__list">
+                            <li><b>Minimum Deposit:</b>$10000</li>
+                            <li><b>Maximum Deposit:</b>$50000</li>
+                            <li><b>Duration:</b>6 Months</li>
+                        </div>
+                        <span class="price__value">$10000</span>
+                        <button class="btn btn--border btn--center" type="button">Buy now</button>
+                    </div>
+                    <!-- end price -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end pricing -->
+
+<!-- testimonials -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                <h2 class="section__title">Client Testimonials</h2>
+                <p class="section__text">What 100% real people say about us</p>
+            </div>
+            <!-- end section title -->
+        </div>
+    </div>
+
+    <!-- testimonials slider -->
+    <div class="owl-carousel testimonial-slider">
+        <div class="testimonial">
+            <div class="testimonial__text">
+                <p>«It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures,
+                    to generate Lorem Ipsum which looks reasonable.»</p>
+            </div>
+
+            <div class="testimonial__client">
+                <img src="img/users/user1.jpg" alt="">
+                <p>Gene Graham</p>
+                <span>New York, USA</span>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial__text">
+                <p>«There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                    alteration in some form, by injected humour, or randomised words which don't look even slightly
+                    believable.»</p>
+            </div>
+
+            <div class="testimonial__client">
+                <img src="img/users/user2.jpg" alt="">
+                <p>Rosa Lee</p>
+                <span>Paris, France</span>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial__text">
+                <p>«All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making
+                    this the first true generator on the Internet.»</p>
+            </div>
+
+            <div class="testimonial__client">
+                <img src="img/users/user3.jpg" alt="">
+                <p>Tess Harper</p>
+                <span>Ha Noi, Vietnam</span>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial__text">
+                <p>«If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
+                    embarrassing hidden in the middle of text.»</p>
+            </div>
+
+            <div class="testimonial__client">
+                <img src="img/users/user4.jpg" alt="">
+                <p>Brian Cranston</p>
+                <span>Washington, USA</span>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial__text">
+                <p>«There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                    alteration in some form, by injected humour, or randomised words which don't look even slightly
+                    believable.»</p>
+            </div>
+
+            <div class="testimonial__client">
+                <img src="img/users/user5.jpg" alt="">
+                <p>Matt Jones</p>
+                <span>Sydney, Australia</span>
+            </div>
+        </div>
+    </div>
+    <!-- end testimonials slider -->
+</section>
+<!-- end testimonials -->
+
+<!-- get started -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <!-- review -->
+                <div class="review">
+                    <blockquote class="review__blockquote">«I love the simple, minimal design, lots of white, not an
+                        overwhelming amount of features. Compared to some other alternatives I have tried, it was easy
+                        to sign up, bug-free, and easy to use so far.»
+                    </blockquote>
+                    <span class="review__autor">
+							John Doe
+							<span>Entrepreneur</span>
+						</span>
+                </div>
+                <!-- end review -->
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <!-- get started -->
+                <div class="get-started">
+                    <h3 class="get-started__title">Create Account</h3>
+                    <p class="get-started__text">All the Lorem Ipsum generators on the Internet tend to repeat
+                        predefined chunks as necessary.</p>
+                    <a href="{% url 'UserAccount:register' %}" class="btn">get started</a>
+                </div>
+                <!-- end get started -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end get started -->
+
+<!-- partners -->
+<div class="partners section--border-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- partners slider -->
+                <div class="owl-carousel partners__slider">
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/activeden-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/audiojungle-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/codecanyon-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/photodune-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/themeforest-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/videohive-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+
+                    <!-- slider item -->
+                    <div class="item">
+                        <a href="#">
+                            <img src="img/partners/3docean-light-background.png" alt="">
+                        </a>
+                    </div>
+                    <!-- end slider item -->
+                </div>
+                <!-- end partners slider -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end partners -->
+{% endblock %}

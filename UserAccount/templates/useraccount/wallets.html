@@ -1,0 +1,53 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block refer %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Wallet - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="crypto-overview-wrapper">
+                                <div class="col-xl-12">
+                                    <div class="">
+                                        <h2 class="crypto-stitle">Make deposit into the wallet below</h2>
+                                        <div class="col-xl-12" align="center">
+                                            <p class="crypto-stitle">Wallet balance would be updated once deposit is confirmed:</p>
+                                            <div class="cfi m-2">
+                                                <input type="text" class="col-6" disabled style="background-color: #01CD8C; color: white;"
+                                                   value="{{ account }}">
+                                                <a class="btn-style-b-m" style="padding: 0px 10px; color: black" onclick="myFunction()" type="button" id="button-addon2"><i class="fa fa-copy"></i></a>
+                                            </div>
+                                            <p class="crypto-stitle">Currency:</p>
+                                            <p><b>{{ currency }}</b></p>
+                                            <div class="m-4 p-4">
+                                                <p>User:</p>
+                                                <i class="fa fa-user fa-2x"></i>
+                                                <p><b>lucasdennis</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

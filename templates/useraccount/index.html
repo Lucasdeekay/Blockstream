@@ -1,0 +1,162 @@
+{% extends 'useraccount/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<!--Header Section-->
+<header class="cryptodash-header cdh-light">
+    <nav class="navbar navbar-expand-lg cryptodash-nav">
+        <a class="navbar-brand" href="{% url 'UserAccount:dashboard' %}" style="padding-left: 0px">
+            <div class="logo" style="width:30px; height:62px; padding-top:10px">
+                <img src="{% static 'useraccount/assets/img/favicon.png' %}" alt="">
+                <small>Blockstream</small>
+            </div>
+        </a>
+        <a id="sideNav-toggle" href=""><span id="main_icon" class="fa fa-bars" style="margin-left:25px"></span></a>
+        <div class="collapse navbar-collapse right-nav" id="navbarTogglerDemo02">
+
+            <div class="dropdown is-hoverable is-right nav navbar-header-nav ml-auto crypto-user-btn">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" style="border:0px;">
+                  <span class="icon is-small">
+                    <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content" style="padding-left:10px">
+                    <a href="" style="margin-bottom:20px">
+                        <b>{{ clientele }}</b><br>
+                    <small><i class="fa fa-envelope" style="margin-right:5px"></i>{{ clientele.email }}</small>
+                  </a><br><br>
+                  <a href="{% url 'UserAccount:settings'%}" class="button is-link is-rounded is-small">
+                    <small>Account Settings</small>
+                  </a>
+                    <hr class="dropdown-divider">
+                  <a href="{% url 'UserAccount:deposit'%}">
+                    <small>Deposit</small>
+                  </a><br>
+                    <a href="{% url 'UserAccount:withdraw'%}">
+                    <small>Withdraw</small>
+                  </a><br>
+                    <a href="{% url 'UserAccount:invest'%}">
+                    <small>Buy Plan</small>
+                  </a>
+                  <hr class="dropdown-divider">
+                  <a href="{% url 'UserAccount:logout'%}">
+                    <small>Logout</small>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--End Header Section-->
+
+<!--Main Section-->
+<div class="cryptodash-full-wrapper">
+    <div class="crypto-dash-sidenav">
+        <div id="sideNavWrapper" class="active">
+
+            <div id="sidebar-wrapper">
+                <nav class="sidebar-nav">
+                    <ul class="metismenu" id="menu3">
+                        <li class="{% block dashboard %}{% endblock %}">
+                            <a href="{% url 'UserAccount:dashboard' %}">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="msm-text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="{% block deposit %}{% endblock %}">
+                            <a href="{% url 'UserAccount:deposit' %}">
+                                <i class="fa fa-money" aria-hidden="true"></i>
+                                <span class="msm-text">Deposit</span>
+                            </a>
+                        </li>
+                        <li class="{% block invest %}{% endblock %}">
+                            <a href="{% url 'UserAccount:invest' %}">
+                                <i class="fa fa-cubes" aria-hidden="true"></i>
+                                <span class="msm-text">Invest</span>
+                            </a>
+                        </li>
+                        <li class="{% block withdraw %}{% endblock %}">
+                            <a href="{% url 'UserAccount:withdraw' %}">
+                                <i class="fa fa-google-wallet" aria-hidden="true"></i>
+                                <span class="msm-text">Withdraw Fund</span>
+                            </a>
+                        </li>
+                        <li class="{% block record %}{% endblock %}">
+                            <a href="{% url 'UserAccount:profit_record' %}">
+                                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                                <span class="msm-text">Profit Record</span>
+                            </a>
+                        </li>
+                        <li class="{% block transaction %}{% endblock %}">
+                            <a href="{% url 'UserAccount:transaction' %}">
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                                <span class="msm-text">Transaction</span>
+                            </a>
+                        </li>
+                        <li class="{% block refer %}{% endblock %}">
+                            <a href="{% url 'UserAccount:refer' %}">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                <span class="msm-text">Refer Users</span>
+                            </a>
+                        </li>
+                        <li class="{% block support %}{% endblock %}">
+                            <a href="{% url 'UserAccount:support' %}">
+                                <i class="fa fa-support" aria-hidden="true"></i>
+                                <span class="msm-text">Help/Support</span>
+                            </a>
+                        </li>
+                        <li class="{% block settings %}{% endblock %}">
+                            <a href="{% url 'UserAccount:settings' %}">
+                                <i class="fa fa-wrench" aria-hidden="true"></i>
+                                <span class="msm-text">Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'UserAccount:logout' %}">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                <span class="msm-text">Sign Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div align="center">
+                <!-- Start Message area -->
+                {% for message in messages %}
+                {% if message.tags == "success" %}
+                <article class="message is-success" id="suc-sec" style="width:250px">
+                  <div class="message-header">
+                    <p>Success</p>
+                    <button class="delete" aria-label="delete"></button>
+                  </div>
+                  <div class="message-body">
+                    <strong><em>{{ message }}</em></strong>
+                  </div>
+                </article>
+                {% else %}
+                <article class="message is-danger" id="err-sec" style="width:250px">
+                  <div class="message-header">
+                    <p>Danger</p>
+                    <button class="delete" aria-label="delete"></button>
+                  </div>
+                  <div class="message-body">
+                      <strong><em>{{ message }}</em></strong>
+                  </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                <!-- End Message area -->
+            </div>
+            {% block main %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+<!--End Main Section-->
+{% endblock %}

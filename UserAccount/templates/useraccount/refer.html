@@ -1,0 +1,97 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block refer %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Refer User - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="crypto-overview-wrapper">
+                                <div class="col-xl-12">
+                                    <div class="">
+                                        <h2 class="crypto-stitle">Refer users to Broker Trade community</h2>
+                                        <div class="col-xl-12" align="center">
+                                            <p class="crypto-stitle">You can refer users by sharing your referral link:</p>
+                                            <div class="cfi m-2">
+                                                <input type="text" class="col-6" disabled style="background-color: #01CD8C; color: white;"
+                                                   value="http://127.0.0.1:1000/account/referhttp://127.0.0.1:1000/account/refer/{{ clientele.user }}">
+                                                <a class="btn-style-b-m" style="padding: 0px 10px; color: black" onclick="myFunction()" type="button" id="button-addon2"><i class="fa fa-copy"></i></a>
+                                            </div>
+                                            <p class="crypto-stitle">or your referral ID:</p>
+                                            <p><b>{{ clientele.user }}</b></p>
+                                            <div class="m-4 p-4">
+                                                <p>You were referred:</p>
+                                                <i class="fa fa-user fa-2x"></i>
+                                                <p><b>{% if not referer %}None{% else %}{{ referer.referer }}{% endif %}</b></p>
+                                            </div>
+                                        </div>
+                                        <div class="rth-table">
+                                            <h2 class="crypto-stitle">Your Referrals</h2>
+                                            <table class="table cryptodash-tableA col-12">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-4"><b>Client Name</b></th>
+                                                    <th class="col-4"><b>Ref. Bonus</b></th>
+                                                    <th class="col-4"><b>Date Created</b></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if not referral %}
+                                                <tr class="border-top">
+                                                    <td class="col-4" colspan="4">No Referral available</td>
+                                                </tr>
+                                                {% else %}
+                                                {% for data in referral %}
+                                                <tr class="border-top">
+                                                    <td class="col-4">${{ data.referral }}</td>
+                                                    <td class="col-4">{{ data.bonus }}</td>
+                                                    <td class="col-4">{{ data.date }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if referral_obj.has_previous %}
+                                                    <li><a href="?page={{ referral_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ referral_obj.number }} of {{ referral_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if referral_obj.has_next %}
+                                                    <li><a href="?page={{ referral_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

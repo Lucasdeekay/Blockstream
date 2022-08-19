@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+    <!--Meta Tag Section-->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--End Meta Tag Section-->
+
+    <!--CSS Links Section-->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/dist/metismenu/metisMenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'useraccount/assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!--End CSS Links Section-->
+
+    <!--Favicon Section-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'useraccount/assets/img/favicon.png' %}">
+    <!--End Favicon Section-->
+
+    <!--Title Block-->
+    {% block title %}
+    {% endblock %}
+    <!--End Title Block-->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!--Preloader Section-->
+<div id="preloader"></div>
+<!--End Preloader Section-->
+
+{% block body %}
+{% endblock %}
+
+<!--Script Section-->
+<script src="{% static 'useraccount/assets/js/jquery-3.2.0.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/jquery-ui.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/countdown.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/jquery.scrollUp.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/Chart.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/ChartUtils.js' %}"></script>
+<script src="{% static 'useraccount/assets/dist/metismenu/metisMenu.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/graph-chart-activation.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/theme.js' %}"></script>
+<script src="{% static 'useraccount/assets/js/main.js' %}"></script>
+
+<!--Script Block-->
+{% block script %}
+{% endblock %}
+<!--End Script Block-->
+
+<!--End Script Section-->
+
+</body>
+
+</html>

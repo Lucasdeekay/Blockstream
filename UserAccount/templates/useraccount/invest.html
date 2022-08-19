@@ -1,0 +1,147 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block invest %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Invest - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <h2 class="crypto-stitle">Invest In A Plan</h2>
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="pricing-single-wrapper">
+                                <div class="crypto-pricing-a" style="margin-top: 30px">
+                                    <h2 class="crypto-stitle" align="center">BASIC PLAN</h2>
+                                    <h3 align="center">$100</h3>
+                                    <div class="cp-price">
+                                        <small>MINIMUM AMOUNT<br>
+                                            <b>$100</b><br>
+                                        </small>
+                                        <small>MAXIMUM AMOUNT<br>
+                                            <b>$499</b><br>
+                                        </small>
+                                        <small>DURATION<br>
+                                            <b>2 WEEKS</b><br>
+                                        </small>
+                                        <form action="" class="sign__form" method="post">
+                                            {% csrf_token %}
+                                            <div class="col-xl-12">
+                                                <input type="hidden" name="plan" value="Basic">
+                                                {% include 'useraccount/django_form.html' with form=form %}
+                                            </div>
+                                            <div class="cp-btn">
+                                        <button class="btn-style-b-m" type="submit">Invest</button>
+                                    </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="pricing-single-wrapper">
+                                <div class="crypto-pricing-a" style="margin-top: 30px">
+                                    <h2 class="crypto-stitle" align="center">SILVER PLAN</h2>
+                                    <h3 align="center">$500</h3>
+                                    <div class="cp-price">
+                                        <small>MINIMUM AMOUNT<br>
+                                            <b>$500</b><br>
+                                        </small>
+                                        <small>MAXIMUM AMOUNT<br>
+                                            <b>$999</b><br>
+                                        </small>
+                                        <small>DURATION<br>
+                                            <b>4 WEEKS</b><br>
+                                        </small>
+                                        <form action="" class="sign__form" method="post">
+                                            {% csrf_token %}
+                                            <div class="col-xl-12">
+                                                <input type="hidden" name="plan" value="Silver">
+                                                {% include 'useraccount/django_form.html' with form=form %}
+                                            </div>
+                                            <div class="cp-btn">
+                                        <button class="btn-style-b-m" type="submit">Invest</button>
+                                    </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="pricing-single-wrapper">
+                                <div class="crypto-pricing-a" style="margin-top: 30px">
+                                    <h2 class="crypto-stitle" align="center">GOLD PLAN</h2>
+                                    <h3 align="center">$1000</h3>
+                                    <div class="cp-price">
+                                        <small>MINIMUM AMOUNT<br>
+                                            <b>$1000</b><br>
+                                        </small>
+                                        <small>MAXIMUM AMOUNT<br>
+                                            <b>$4999</b><br>
+                                        </small>
+                                        <small>DURATION<br>
+                                            <b>3 MONTHS</b><br>
+                                        </small>
+                                        <form action="" class="sign__form" method="post">
+                                            {% csrf_token %}
+                                            <div class="col-xl-12">
+                                                {% include 'useraccount/django_form.html' with form=form %}
+                                                <input type="hidden" name="plan" value="Gold">
+                                            </div>
+                                            <div class="cp-btn">
+                                        <button class="btn-style-b-m" type="submit">Invest</button>
+                                    </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-2">
+                    <div class="pricing-single-wrapper">
+                        <div class="crypto-pricing-a" style="margin-top: 30px">
+                            <h2 class="crypto-stitle" align="center">PLATINUM PLAN</h2>
+                            <h3 align="center">$5000</h3>
+                            <div class="cp-price">
+                                <small>MINIMUM AMOUNT<br>
+                                    <b>$5000</b><br>
+                                </small>
+                                <small>MAXIMUM AMOUNT<br>
+                                    <b>Unlimited</b><br>
+                                </small>
+                                <small>DURATION<br>
+                                    <b>6 MONTHS</b><br>
+                                </small>
+                                <form action="" class="sign__form" method="post">
+                                    {% csrf_token %}
+                                    <div class="col-xl-12">
+                                        {% include 'useraccount/django_form.html' with form=form %}
+                                        <input type="hidden" name="plan" value="Platinum">
+                                    </div>
+                                    <div class="cp-btn">
+                                        <button class="btn-style-b-m" type="submit">Invest</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

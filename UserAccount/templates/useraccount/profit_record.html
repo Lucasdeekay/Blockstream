@@ -1,0 +1,79 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block record %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Profit Record - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="recent-transaction-history">
+                                <h2 class="crypto-stitle">Your ROI History</h2>
+                                <div class="rth-table">
+                                    <table class="table cryptodash-tableA col-12">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-3"><b>Plan</b></th>
+                                            <th class="col-3"><b>Amount</b></th>
+                                            <th class="col-3"><b>Active</b></th>
+                                            <th class="col-3"><b>Date Created</b></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if not investment %}
+                                        <tr class="border-top">
+                                            <td class="col-3" colspan="4">No investment available</td>
+                                        </tr>
+                                        {% else %}
+                                        {% for data in investment %}
+                                        <tr class="border-top">
+                                            <td class="col-3">{{ data.plan }}</td>
+                                            <td class="col-3">${{ data.profit }}</td>
+                                            <td class="col-3">{{ data.is_active }}</td>
+                                            <td class="col-3">{{ data.date }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                    <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if investment_obj.has_previous %}
+                                                    <li><a href="?page={{ investment_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ investment_obj.number }} of {{ investment_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if investment_obj.has_next %}
+                                                    <li><a href="?page={{ investment_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

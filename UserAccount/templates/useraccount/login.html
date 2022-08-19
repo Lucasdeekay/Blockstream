@@ -1,0 +1,32 @@
+{% extends 'sitehome/signup.html' %}
+
+{% load static %}
+
+<!--Title Block-->
+{% block title %}
+<title>Login - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+{% block body %}
+<!-- form -->
+<form action="#" class="sign__form" method="post">
+    {% csrf_token %}
+    <a href="{% url 'SiteHome:home' %}"  class="sign__logo" style="font-size:25px; color: black">
+            <img src="{% static 'sitehome/icon/favicon.png' %}" alt="" style="height:60px">
+            Blockstream
+        </a>
+
+    {% include 'sitehome/django_form.html' with form=form %}
+
+    <button class="btn" type="submit">Login</button>
+
+    <a href="{% url 'UserAccount:forgot_password' %}" class="sign__forgot">Forgot password?</a>
+</form>
+
+<div class="sign__box">
+    <p>Don't have an account? <a href="{% url 'UserAccount:register' %}">Sign up</a></p>
+</div>
+<!-- end form -->
+{% endblock %}
+

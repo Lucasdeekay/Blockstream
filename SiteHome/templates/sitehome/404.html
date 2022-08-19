@@ -1,0 +1,28 @@
+{% extends 'sitehome/signup.html' %}
+
+{% load static %}
+
+<!--Title Block-->
+{% block title %}
+<title>Error 404 - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+{% block body %}
+<!-- 404 -->
+<div class="sign">
+    <!-- particles -->
+    <div id="canvas" class="sign__particles"></div>
+    <!-- end particles -->
+
+    <div class="sign__content">
+        <div class="sign__error">
+            <h1>404</h1>
+            <p>The page you are looking for not available!</p>
+            <a href="{% url 'SiteHome:home' %}" class="btn">Go to Homepage</a>
+        </div>
+    </div>
+</div>
+<!-- end 404 -->
+{% endblock %}
+
