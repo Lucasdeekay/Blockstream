@@ -53,5 +53,17 @@ def contact(request):
     return render(request, "sitehome/contact.html", {'form': form})
 
 
+def legal_doc(request):
+    return render(request, "sitehome/legal_doc.html")
+
+
+def knowledge_base(request):
+    return render(request, "sitehome/knowledge_base.html")
+
+
+def privacy(request):
+    return render(request, "sitehome/privacy.html")
+
+
 def error_404(request, exception):
     return render(request, 'useraccount/404.html')

@@ -1,0 +1,73 @@
+{% extends 'sitehome/index.html' %}
+
+{% block title %}
+<title>About Us – Blockstream</title>
+{% endblock %}
+
+{% block main %}
+<!-- page title -->
+<section class="section section--first">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                <h1 class="section__title section__title--page">Knowledge</h1>
+                <p class="section__text">Find answers to all your questions here</p>
+            </div>
+            <!-- end section title -->
+        </div>
+    </div>
+
+    <!-- particles -->
+    <div id="canvas" class="section__particles"></div>
+    <!-- end particles -->
+</section>
+<!-- end page title -->
+
+<!-- knowledge -->
+<section class="section section--border-bottom">
+    <div class="container">
+        <div class="row row--grid">
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="knowledge">
+                    <h3 class="knowledge__title">Coins</h3>
+                    <ul class="knowledge__list">
+                        <li><a href="#">Bitcoin</a><span>31</span></li>
+                        <li><a href="#">Ethereum</a><span>18</span></li>
+                        <li><a href="#">Litecoin</a><span>23</span></li>
+                        <li><a href="#">Startcoin</a><span>14</span></li>
+                        <li><a href="#">Infinitecoin</a><span>17</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="knowledge">
+                    <h3 class="knowledge__title">Payments</h3>
+                    <ul class="knowledge__list">
+                        <li><a href="#">Buy/Sell Coins</a><span>39</span></li>
+                        <li><a href="#">Withdrawals</a><span>12</span></li>
+                        <li><a href="#">Coins Exchange</a><span>8</span></li>
+                        <li><a href="#">About Tokens</a><span>74</span></li>
+                        <li><a href="#">Earnings</a><span>13</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="knowledge">
+                    <h3 class="knowledge__title">ICO</h3>
+                    <ul class="knowledge__list">
+                        <li><a href="#">ICO Fundamentals</a><span>44</span></li>
+                        <li><a href="#">Investment</a><span>82</span></li>
+                        <li><a href="#">Risks and Benefits</a><span>16</span></li>
+                        <li><a href="#">Trade</a><span>8</span></li>
+                        <li><a href="#">Earnings</a><span>13</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end knowledge -->
+{% endblock %}

@@ -137,15 +137,16 @@
                     <li><a href="{% url 'SiteHome:about' %}">About Us</a></li>
                     <li><a href="{% url 'SiteHome:faq' %}">FAQs</a></li>
                     <li><a href="{% url 'SiteHome:contact' %}">Contact</a></li>
+                    <li><a href="{% url 'SiteHome:admin_manager' %}">Admin</a></li>
                 </ul>
             </div>
 
             <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                 <h6 class="footer__title">Legal</h6>
                 <ul class="footer__list">
-                    <li><a href="documents.html">Legal documents</a></li>
-                    <li><a href="knowledge.html">Knowledge base</a></li>
-                    <li><a href="privacy.html">Privacy policy</a></li>
+                    <li><a href="{% url 'SiteHome:legal_doc' %}">Legal documents</a></li>
+                    <li><a href="{% url 'SiteHome:knowledge_base' %}">Knowledge base</a></li>
+                    <li><a href="{% url 'SiteHome:privacy' %}">Privacy policy</a></li>
                 </ul>
             </div>
 
@@ -153,7 +154,7 @@
                 <h6 class="footer__title">Contact</h6>
                 <ul class="footer__list footer__list--contacts">
                     <li><a href="tel:88002345678">8 800 234 56 78</a></li>
-                    <li><a href="mailto:support@smartmine.com">support@smartmine.com</a></li>
+                    <li><a href="mailto:support@example.com">support@example.com</a></li>
                 </ul>
                 <ul class="footer__social">
                     <li><a href="#" target="_blank">
@@ -217,7 +218,7 @@
 
             <div class="col-12">
                 <div class="footer__copyright">
-                    <small>© Broker, 2018—2022</small>
+                    <small>© Blockstream, 2018—2022</small>
                 </div>
             </div>
         </div>
