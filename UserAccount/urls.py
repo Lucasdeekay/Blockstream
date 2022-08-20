@@ -30,9 +30,11 @@ urlpatterns = [
     path('deposit/wallet/<str:mode>', views.wallet, name='wallet'),
     path('invest', views.invest, name='invest'),
     path('withdraw-fund', views.withdraw, name='withdraw'),
+    path('withdraw-fund/verify', views.confirm_withdrawal, name='confirm_withdrawal'),
     path('profit-record', views.profit_record, name='profit_record'),
     path('transaction', views.transaction, name='transaction'),
     path('refer', views.refer, name='refer'),
+    path('refer/<str:ref>', views.ref_register, name='ref_register'),
     path('support', views.support, name='support'),
     path('settings', views.settings, name='settings'),
     path('api/', include(router.urls))

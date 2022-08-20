@@ -1,0 +1,59 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block refer %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Confirm Withdrawal - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="crypto-overview-wrapper">
+                                <div class="col-xl-12">
+                                    <marquee behavior="infinite" direction="left">
+                                        Submit your OTP in the box provided. Note that,
+                                        Withdrawal request will be cancelled in the case of invalid OTP
+                                    </marquee>
+                                    <div class="">
+                                        <h2 class="crypto-stitle">Confirm Withdrawal Request</h2>
+                                        <div class="col-xl-12">
+                                            <form action="" method="post">
+                                                <div class="cfi m-2">
+                                                    <label for="wallet">Wallet Address</label>
+                                                    <input type="text" class="col-3" style="background-color: #01CD8C; color: white;"
+                                                       name="wallet" id="wallet">
+                                                </div>
+                                                <div class="cfi m-2">
+                                                    <label for="otp">OTP</label>
+                                                    <small class="crypto-stitle">Enter OTP sent to your email below</small>
+                                                    <input type="text" class="col-3" style="background-color: #01CD8C; color: white;"
+                                                       name="otp" id="otp">
+                                                </div>
+                                                <button class="button is-link is-round" style="padding: 0px 10px; color: black" type="submit">Submit</button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

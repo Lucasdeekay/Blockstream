@@ -72,10 +72,6 @@ def log_in(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         # Redirect to the dashboard
         return HttpResponseRedirect(reverse('UserAccount:dashboard'))
-        # Check if user is logged in and not a super user
-    elif request.user.is_authenticated and request.user.is_superuser:
-        # Redirect to the dashboard
-        return HttpResponseRedirect(reverse('UserAccount:admin_manager'))
     # If user is not logged in
     else:
         # Check if form was submitted
@@ -360,6 +356,7 @@ def register(request):
                 # Get all registered clienteles
                 all_clienteles = Clientele.objects.all()
 
+
                 # Loop through all clienteles to check if user already exists
                 for clientele in all_clienteles:
                     if username == clientele.user.username:
@@ -374,6 +371,8 @@ def register(request):
                     new_user = User.objects.create_user(username=username, email=email, password=password)
                     # Create a new clientele and link te new user to it
                     Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no, email=email)
+                    # Create new account
+                    Account.objects.create(clientele=clientele)
                     # Check if new user was referred
                     if referer != '':
                         # Get the referer
@@ -404,6 +403,20 @@ def register(request):
             form = RegistrationForm()
         # Render registration page
         return render(request, 'useraccount/register.html', {'form': form})
+
+
+# View displays and authenticates user registration
+def ref_register(request, ref):
+    # Check if user is logged in and not a super user
+    if request.user.is_authenticated and not request.user.is_superuser:
+        # Redirect to the user account's dashboard
+        return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+    # If user is not logged in
+    else:
+        # display form
+        form = RegistrationForm()
+        # Render registration page
+        return render(request, 'useraccount/register.html', {'form': form, 'ref': ref})
 
 
 # View logs out the user
@@ -446,8 +459,26 @@ def deposit(request):
                 # Get form data
                 amount = form.cleaned_data.get('amount')
                 mode = 'USDT' if request.POST.get('mode') == 'usdt' else 'BTC'
+
+                # Generate transaction id
+                transaction_id = ''.join(
+                    [random.choice(string.ascii_letters + string.digits) for i in range(8)])
                 # Create new deposit
-                Deposit.objects.create(clientele=current_clientele, mode=mode, amount=amount, date=timezone.now())
+                Deposit.objects.create(clientele=current_clientele, mode=mode, amount=amount,
+                                       transaction_id=transaction_id, date=timezone.now())
+
+                # Create and send mail to the clientele
+                subject = 'New Deposit Notice'
+                msg = f"Transaction ID for the proposed deposit of ${amount} in {mode} is displayed below"
+                context = {'subject': subject, 'msg': msg, 'recovery_password': transaction_id,
+                           'id': current_clientele.id}
+                html_message = render_to_string('useraccount/msg.html', context=context)
+
+                send_mail(subject, msg, EMAIL_HOST_USER, [current_clientele.email], html_message=html_message,
+                          fail_silently=False)
+                # Display message
+                messages.success(request, "Transaction ID has been successfully sent to your email")
+
                 # Redirect to wallet page
                 return HttpResponseRedirect(reverse('UserAccount:wallet', args=(mode,)))
         # If form was not submitted
@@ -561,11 +592,28 @@ def withdraw(request):
                     messages.error(request, "Withdrawal unsuccessful. Insufficient current balance")
                     # Redirect to investment page
                     return HttpResponseRedirect(reverse('UserAccount:invest'))
+
                 else:
+                    # Generate otp
+                    otp = ''.join(
+                        [random.choice(string.ascii_letters + string.digits) for i in range(6)])
                     # Create a new Withdrawal instance
-                    Withdrawal.objects.create(clientele=current_clientele, mode=mode, amount=amount, date=timezone.now())
+                    Withdrawal.objects.create(clientele=current_clientele, mode=mode, amount=amount,
+                                              otp=otp, date=timezone.now())
+
+                    # Create and send mail to the clientele
+                    subject = 'New Withdrawal Request'
+                    msg = f"OTP for the proposed deposit of ${amount} in {mode} is displayed below"
+                    context = {'subject': subject, 'msg': msg, 'recovery_password': otp,
+                               'id': current_clientele.id}
+                    html_message = render_to_string('useraccount/msg.html', context=context)
+
+                    send_mail(subject, msg, EMAIL_HOST_USER, [current_clientele.email], html_message=html_message,
+                              fail_silently=False)
+                    # Display message
+                    messages.success(request, "OTP has been successfully sent to your email")
                     # Redirect to dashboard page
-                    return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+                    return HttpResponseRedirect(reverse('UserAccount:confirm_withdrawal'))
 
         # If form was not submitted
         else:
@@ -573,6 +621,39 @@ def withdraw(request):
             form = AmountForm()
         # Create context
         context = {'form': form, 'clientele': current_clientele}
+        # Render investment page
+        return render(request, 'useraccount/withdraw.html', context)
+    # If user is not logged in
+    else:
+        # Redirect to login page
+        return HttpResponseRedirect(reverse('UserAccount:login'))
+
+
+def confirm_withdrawal(request):
+    # Check if user is logged in and not a super user
+    if request.user.is_authenticated and not request.user.is_superuser:
+        # Get current clientele
+        current_clientele = get_object_or_404(Clientele, user=request.user)
+        # Get otp input from user
+        otp = request.POST.get("otp").strip()
+        wallet_addr = request.POST.get("wallet").strip()
+        try:
+            withdrawal = Withdrawal.objects.get(clientele=current_clientele, otp=otp)
+            withdrawal.otp_confirmed = True
+            withdrawal.wallet = wallet_addr
+            withdrawal.save()
+            messages.success(request, "Withdrawal will be sent into your wallet after it has been validated")
+            # Redirect to dashboard page
+            return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+        except Exception:
+            messages.success(request, "Withdrawal request cancelled due to invalid OTP")
+            withdrawal = Withdrawal.objects.get(current_clientele=current_clientele, otp_confirmed=False)
+            withdrawal.delete()
+            # Redirect to withdraw page
+            return HttpResponseRedirect(reverse('UserAccount:withdraw'))
+
+        # Create context
+        context = {'clientele': current_clientele}
         # Render investment page
         return render(request, 'useraccount/withdraw.html', context)
     # If user is not logged in

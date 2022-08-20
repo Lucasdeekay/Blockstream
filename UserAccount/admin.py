@@ -17,11 +17,11 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 class DepositAdmin(admin.ModelAdmin):
-    list_display = ('clientele', 'mode', 'amount', 'date', 'is_verified')
+    list_display = ('clientele', 'mode', 'amount', 'date', 'transaction_id', 'is_verified')
 
 
 class WithdrawalAdmin(admin.ModelAdmin):
-    list_display = ('clientele', 'mode', 'amount', 'date', 'is_verified')
+    list_display = ('clientele', 'mode', 'amount', 'wallet', 'date', 'otp', 'otp_confirmed', 'is_verified')
 
 
 class InvestmentAdmin(admin.ModelAdmin):

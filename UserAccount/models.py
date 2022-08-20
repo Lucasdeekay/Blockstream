@@ -52,6 +52,7 @@ class Deposit(models.Model):
     ])
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     date = models.DateField()
+    transaction_id = models.CharField(max_length=8)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -66,7 +67,10 @@ class Withdrawal(models.Model):
         ('USDT', 'USDT'),
     ])
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    wallet = models.CharField(max_length=100, null=True, blank=True)
     date = models.DateField()
+    otp = models.CharField(max_length=6)
+    otp_confirmed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
