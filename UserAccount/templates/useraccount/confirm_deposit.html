@@ -1,0 +1,53 @@
+{% extends 'useraccount/index.html' %}
+
+{% load static %}
+
+{% block refer %}mm-active{% endblock %}
+
+<!--Title Block-->
+{% block title %}
+<title>Confirm Deposit - Blockstream</title>
+{% endblock %}
+<!--End Title Block-->
+
+<!--Main Section-->
+{% block main %}
+<div id="page-content-wrapper" class="dashboard-content">
+
+    <div class="page-content inset">
+        <div class="crypto-container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="crypto-overview-wrapper">
+                                <div class="col-xl-12">
+                                    <marquee behavior="infinite" direction="left">
+                                        Invalid transaction id will cause deposit made to remain unverified
+                                    </marquee>
+                                    <div class="">
+                                        <h2 class="crypto-stitle">Confirm Deposit Made</h2>
+                                        <div class="col-xl-12">
+                                            <form action="" method="post">
+                                                <div class="cfi m-2">
+                                                    <label for="transaction_id">Transaction ID</label>
+                                                    <small class="crypto-stitle">Enter Transaction ID sent to your email below</small>
+                                                    <input type="text" class="col-3" style="background-color: #01CD8C; color: white;"
+                                                       name="transaction_id" id="transaction_id">
+                                                </div>
+                                                <button class="button is-link is-round" style="padding: 0px 10px; color: black" type="submit">Submit</button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--End Main Section-->

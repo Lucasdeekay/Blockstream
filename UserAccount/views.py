@@ -495,6 +495,35 @@ def deposit(request):
         return HttpResponseRedirect(reverse('UserAccount:login'))
 
 
+def confirm_deposit(request):
+    # Check if user is logged in and not a super user
+    if request.user.is_authenticated and not request.user.is_superuser:
+        # Get current clientele
+        current_clientele = get_object_or_404(Clientele, user=request.user)
+        # Get otp input from user
+        transaction_id = request.POST.get("transaction_id").strip()
+        try:
+            deposit = Deposit.objects.get(clientele=current_clientele, transaction_id=transaction_id)
+            deposit.otp_confirmed = True
+            deposit.save()
+            messages.success(request, "Deposit confirmation recived. Account balance will be updated after it has been validated")
+            # Redirect to dashboard page
+            return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+        except Exception:
+            messages.success(request, "Deposit record does not exist")
+            # Redirect to withdraw page
+            return HttpResponseRedirect(reverse('UserAccount:deposit'))
+
+        # Create context
+        context = {'clientele': current_clientele}
+        # Render investment page
+        return render(request, 'useraccount/withdraw.html', context)
+    # If user is not logged in
+    else:
+        # Redirect to login page
+        return HttpResponseRedirect(reverse('UserAccount:login'))
+
+
 # View displays the wallet page of the user
 def wallet(request, mode):
     # Check if user is logged in and not a super user
@@ -655,7 +684,7 @@ def confirm_withdrawal(request):
         # Create context
         context = {'clientele': current_clientele}
         # Render investment page
-        return render(request, 'useraccount/withdraw.html', context)
+        return render(request, 'useraccount/confirm_withdrawal.html', context)
     # If user is not logged in
     else:
         # Redirect to login page

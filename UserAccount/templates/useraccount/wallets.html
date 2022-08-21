@@ -29,17 +29,14 @@
                                             <div class="cfi m-2">
                                                 <input type="text" class="col-6" disabled style="background-color: #01CD8C; color: white;"
                                                    value="{{ account }}">
-                                                <a class="btn-style-b-m" style="padding: 0px 10px; color: black" onclick="myFunction()" type="button" id="button-addon2"><i class="fa fa-copy"></i></a>
                                             </div>
                                             <p class="crypto-stitle">Currency:</p>
                                             <p><b>{{ currency }}</b></p>
                                             <div class="m-4 p-4">
-                                                <p class="crypto-stitle">Kindly enter the transaction Id sent to your
-                                                    mail for confirmation of deposit</p>
-                                                <form action="" method="post">
-                                                    <label for="transaction_id">Transaction Id:</label>
-                                                    <input type="text" name="transaction_id" id="transaction_id">
-                                                </form>
+                                                <small>Confirm your deposit in order to validate deposit made</small>
+                                                <a href="{% url 'UserAccount:confirm_deposit' %}" class="button is-link is-round">
+                                                    Confirm deposit
+                                                </a>
                                             </div>
                                         </div>
 
