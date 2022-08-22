@@ -495,24 +495,27 @@ def deposit(request):
         return HttpResponseRedirect(reverse('UserAccount:login'))
 
 
+# View displays the confirm deposit page and verified deposit's transaction id
 def confirm_deposit(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
-        # Get otp input from user
-        transaction_id = request.POST.get("transaction_id").strip()
-        try:
-            deposit = Deposit.objects.get(clientele=current_clientele, transaction_id=transaction_id)
-            deposit.otp_confirmed = True
-            deposit.save()
-            messages.success(request, "Deposit confirmation recived. Account balance will be updated after it has been validated")
-            # Redirect to dashboard page
-            return HttpResponseRedirect(reverse('UserAccount:dashboard'))
-        except Exception:
-            messages.success(request, "Deposit record does not exist")
-            # Redirect to withdraw page
-            return HttpResponseRedirect(reverse('UserAccount:deposit'))
+        # Check if form was submitted
+        if request.method == 'POST':
+            # Get otp input from user
+            transaction_id = request.POST.get("transaction_id").strip()
+            try:
+                deposit = Deposit.objects.get(clientele=current_clientele, transaction_id=transaction_id)
+                deposit.tid_confirmed = True
+                deposit.save()
+                messages.success(request, "Deposit confirmation recived. Account balance will be updated after it has been validated")
+                # Redirect to dashboard page
+                return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+            except Exception:
+                messages.success(request, "Deposit record does not exist")
+                # Redirect to withdraw page
+                return HttpResponseRedirect(reverse('UserAccount:deposit'))
 
         # Create context
         context = {'clientele': current_clientele}
@@ -658,28 +661,31 @@ def withdraw(request):
         return HttpResponseRedirect(reverse('UserAccount:login'))
 
 
+# View displays the confirm withdrawal page and verified withdrawal otp
 def confirm_withdrawal(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
-        # Get otp input from user
-        otp = request.POST.get("otp").strip()
-        wallet_addr = request.POST.get("wallet").strip()
-        try:
-            withdrawal = Withdrawal.objects.get(clientele=current_clientele, otp=otp)
-            withdrawal.otp_confirmed = True
-            withdrawal.wallet = wallet_addr
-            withdrawal.save()
-            messages.success(request, "Withdrawal will be sent into your wallet after it has been validated")
-            # Redirect to dashboard page
-            return HttpResponseRedirect(reverse('UserAccount:dashboard'))
-        except Exception:
-            messages.success(request, "Withdrawal request cancelled due to invalid OTP")
-            withdrawal = Withdrawal.objects.get(current_clientele=current_clientele, otp_confirmed=False)
-            withdrawal.delete()
-            # Redirect to withdraw page
-            return HttpResponseRedirect(reverse('UserAccount:withdraw'))
+        # Check if form was submitted
+        if request.method == 'POST':
+            # Get otp input from user
+            otp = request.POST.get("otp").strip()
+            wallet_addr = request.POST.get("wallet").strip()
+            try:
+                withdrawal = Withdrawal.objects.get(clientele=current_clientele, otp=otp)
+                withdrawal.otp_confirmed = True
+                withdrawal.wallet = wallet_addr
+                withdrawal.save()
+                messages.success(request, "Withdrawal will be sent into your wallet after it has been validated")
+                # Redirect to dashboard page
+                return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+            except Exception:
+                messages.success(request, "Withdrawal request cancelled due to invalid OTP")
+                withdrawal = Withdrawal.objects.get(current_clientele=current_clientele, otp_confirmed=False)
+                withdrawal.delete()
+                # Redirect to withdraw page
+                return HttpResponseRedirect(reverse('UserAccount:withdraw'))
 
         # Create context
         context = {'clientele': current_clientele}
@@ -919,7 +925,7 @@ def admin_manager(request):
 
         try:
             # Get all the deposits made and withdrawal requested
-            deposits = get_object_or_404(Deposit, is_verified=False).order_by('-date')
+            deposits = get_object_or_404(Deposit, tid_confirmed=True, is_verified=False).order_by('-date')
             deposits_paginator = Paginator(deposits, 20)  # Show 20 deposits per page.
             deposits_page_number = request.GET.get('page')  # Get each paginated pages
             deposits_obj = deposits_paginator.get_page(deposits_page_number)  # Insert the number of items into page
@@ -929,7 +935,7 @@ def admin_manager(request):
             deposit_obj = None
 
         try:
-            withdrawals = get_object_or_404(Withdrawal, is_verified=False).order_by('-date')
+            withdrawals = get_object_or_404(Withdrawal, otp_confirmed=True, is_verified=False).order_by('-date')
             withdrawals_paginator = Paginator(withdrawals, 20)  # Show 20 withdrawals per page.
             withdrawals_page_number = request.GET.get('page')  # Get each paginated pages
             withdrawals_obj = withdrawals_paginator.get_page(withdrawals_page_number)  # Insert the number of items into page

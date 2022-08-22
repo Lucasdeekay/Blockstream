@@ -53,6 +53,7 @@ class Deposit(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     date = models.DateField()
     transaction_id = models.CharField(max_length=8)
+    tid_confirmed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):

@@ -57,10 +57,6 @@ def legal_doc(request):
     return render(request, "sitehome/legal_doc.html")
 
 
-def knowledge_base(request):
-    return render(request, "sitehome/knowledge_base.html")
-
-
 def privacy(request):
     return render(request, "sitehome/privacy.html")
 

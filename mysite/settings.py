@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'www.blockstreamcrypto.com']
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'compressor',
     'SiteHome',
-    'UserAccount.apps.UseraccountConfig', # In order to run scheduled jobs
+    'UserAccount',
     'django_apscheduler',
 ]
 
@@ -78,52 +78,52 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = '9_=+yje8yez)!9xq2d9$5-rfce19mf1%glruk5n4v24^7snptl'
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# # Email
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'lucasdennisbiz@gmail.com'
+# EMAIL_HOST_PASSWORD = 'doqqlpgbhhrlpehg'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9_=+yje8yez)!9xq2d9$5-rfce19mf1%glruk5n4v24^7snptl'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'lucasdennisbiz@gmail.com'
-EMAIL_HOST_PASSWORD = 'doqqlpgbhhrlpehg'
-EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = True
-
-
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv('SECRET_KEY')
-#
-# # Database
-# # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME'),
-#         'USER': os.getenv('DB_USER'),
-#         'PASSWORD': os.getenv('DB_PASSWORD'),
-#         'HOST': os.getenv('DB_HOST'),
-#         'PORT': os.getenv('DB_PORT'),
-#     }
-# }
-#
-# # Email
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT = os.getenv('EMAIL_PORT')
-# EMAIL_USE_TLS = True
 #
 # # Cloudinary
 # CLOUDINARY_STORAGE = {

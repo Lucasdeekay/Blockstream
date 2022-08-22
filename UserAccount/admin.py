@@ -17,7 +17,7 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 class DepositAdmin(admin.ModelAdmin):
-    list_display = ('clientele', 'mode', 'amount', 'date', 'transaction_id', 'is_verified')
+    list_display = ('clientele', 'mode', 'amount', 'date', 'transaction_id', 'tid_confirmed', 'is_verified')
 
 
 class WithdrawalAdmin(admin.ModelAdmin):
