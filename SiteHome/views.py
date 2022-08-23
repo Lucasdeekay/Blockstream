@@ -45,7 +45,7 @@ def contact(request):
             context = {'subject': subject, 'msg': msg, 'clientele': "Admin"}
             html_message = render_to_string('useraccount/msg.html', context=context)
 
-            send_mail(subject, message, EMAIL_HOST_USER, EMAIL_HOST_USER, html_message=html_message,
+            send_mail(subject, message, EMAIL_HOST_USER, [EMAIL_HOST_USER], html_message=html_message,
                       fail_silently=False)
             # Display message
             messages.success(request, "Message successfully sent")
