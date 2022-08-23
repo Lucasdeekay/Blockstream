@@ -142,6 +142,7 @@ def forgotten_password(request):
                 all_user = User.objects.all()
                 # Loop
                 for user in all_user:
+                    print(user.username, user.email)
                     # Check if user exists
                     if user.username == username and user.email == email:
                         # Get clientele
