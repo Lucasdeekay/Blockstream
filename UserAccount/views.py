@@ -178,6 +178,12 @@ def forgotten_password(request):
                         messages.success(request, "Recovery password has been successfully sent")
                         # Redirect to password retrieval page
                         return HttpResponseRedirect(reverse('UserAccount:password_retrieval', args=(clientele.id,)))
+                    # If user is not found by the end of the loop
+                    else:
+                        # Display message
+                        messages.error(request, "User profile does not match")
+                        # Redirect to forgot password page
+                        return HttpResponseRedirect(reverse('UserAccount:forgot_password'))
                 # If user is not found by the end of the loop
                 else:
                     # Display message
@@ -388,8 +394,9 @@ def register(request):
 
                     # Create a message to email to user upon successful registration
                     subject = 'Password Update Successful'
-                    msg = "Registration successful. A mail of approval will be sent to your email when " \
-                          "your registration has been approved, alongside your login details. Thank You."
+                    msg = "Registration successful. We look forward toa solid partnership with you at Blockstream. At "\
+                          "Blockstream, we work towards building a world where everyone can succeed. Welcome to the " \
+                          "Blockstream family."
                     context = {'subject': subject, 'msg': msg}
                     html_message = render_to_string('useraccount/msg.html', context=context)
 
@@ -398,8 +405,7 @@ def register(request):
                               fail_silently=False)
                     # Notify user that email has been sent
                     messages.success(request,
-                                     "Registration successful. A mail of approval will be sent to your email within "
-                                     "the next 48hrs. Thank You.")
+                                     "Registration successful.")
                     # Redirect to login page
                     return HttpResponseRedirect(reverse('UserAccount:login'))
         # If form is not submitted
