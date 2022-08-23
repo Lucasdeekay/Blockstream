@@ -32,13 +32,7 @@ def contact(request):
             name = form.cleaned_data.get('name').strip()
             email = form.cleaned_data.get('email').strip()
             message = form.cleaned_data.get('message').strip()
-            msg = f'''
-            from: {name}
-            email: {email}
-
-
-            {message}
-            '''
+            msg = f'from: {name.capitalize()}<br>email: {email}<br><br><p><b>{message}</b></p>'
 
             # Create and send mail to the clientele
             subject = 'Password Recovery'
