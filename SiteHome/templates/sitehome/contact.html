@@ -57,6 +57,7 @@
         <div class="row row--grid">
             <div class="col-12 col-lg-7 col-xl-8">
                 <form class="form form--contacts form--contacts-page" action="" method="post">
+                    {% csrf_token %}
                     {% include 'sitehome/django_form.html' with form=form %}
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

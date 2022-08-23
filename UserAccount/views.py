@@ -315,7 +315,7 @@ def update_password(request, clientele_id):
                     context = {'subject': subject, 'msg': msg}
                     html_message = render_to_string('useraccount/msg.html', context=context)
 
-                    send_mail(subject, msg, EMAIL_HOST_USER, [clientele_id.email], html_message=html_message,
+                    send_mail(subject, msg, EMAIL_HOST_USER, [user.email], html_message=html_message,
                               fail_silently=False)
 
                     messages.success(request, 'Password successfully changed')
