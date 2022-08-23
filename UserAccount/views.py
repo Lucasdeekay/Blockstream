@@ -169,7 +169,7 @@ def forgotten_password(request):
                         subject = 'Password Recovery'
                         msg = f"Recovery password will expire after an hour. Your password is displayed below"
                         context = {'subject': subject, 'msg': msg, 'recovery_password': recovery_password,
-                                   'id': clientele.id}
+                                   'clientele': clientele}
                         html_message = render_to_string('useraccount/msg.html', context=context)
 
                         send_mail(subject, msg, EMAIL_HOST_USER, [email], html_message=html_message,
@@ -219,7 +219,7 @@ def password_retrieval(request, clientele_id):
                     if passcode.clientele == clientele and passcode.recovery_password == password and passcode.is_active:
                         subject = 'Password Recovery Successful'
                         msg = "Account has been successfully recovered. Kindly proceed to update your password"
-                        context = {'subject': subject, 'msg': msg}
+                        context = {'subject': subject, 'msg': msg, 'clientele':clientele}
                         html_message = render_to_string('useraccount/msg.html', context=context)
 
                         send_mail(subject, msg, EMAIL_HOST_USER, [clientele.email], html_message=html_message,
@@ -274,7 +274,7 @@ def resend_password(request, clientele_id):
         # Create and send mail to the clientele
         subject = 'Password Recovery'
         msg = f"Recovery password will expire after an hour. Your password is displayed below"
-        context = {'subject': subject, 'msg': msg, 'recovery_password': recovery_password, 'id': clientele.id}
+        context = {'subject': subject, 'msg': msg, 'recovery_password': recovery_password, 'clientele': clientele}
         html_message = render_to_string('useraccount/msg.html', context=context)
 
         send_mail(subject, msg, EMAIL_HOST_USER, [clientele.email], html_message=html_message,
@@ -375,7 +375,7 @@ def register(request):
                     # Create a new user
                     new_user = User.objects.create_user(username=username, email=email, password=password)
                     # Create a new clientele and link te new user to it
-                    Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no, email=email)
+                    clientele = Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no, email=email)
                     # Create new account
                     Account.objects.create(clientele=clientele)
                     # Check if new user was referred
@@ -394,8 +394,8 @@ def register(request):
                     html_message = render_to_string('useraccount/msg.html', context=context)
 
                     # Send email
-                    # send_mail(subject, msg, EMAIL_HOST_USER, [email], html_message=html_message,
-                    #           fail_silently=False)
+                    send_mail(subject, msg, EMAIL_HOST_USER, [email], html_message=html_message,
+                              fail_silently=False)
                     # Notify user that email has been sent
                     messages.success(request,
                                      "Registration successful. A mail of approval will be sent to your email within "
@@ -476,7 +476,7 @@ def deposit(request):
                 subject = 'New Deposit Notice'
                 msg = f"Transaction ID for the proposed deposit of ${amount} in {mode} is displayed below"
                 context = {'subject': subject, 'msg': msg, 'recovery_password': transaction_id,
-                           'id': current_clientele.id}
+                           'clientele': current_clientele}
                 html_message = render_to_string('useraccount/msg.html', context=context)
 
                 send_mail(subject, msg, EMAIL_HOST_USER, [current_clientele.email], html_message=html_message,
@@ -514,7 +514,7 @@ def confirm_deposit(request):
                 deposit = Deposit.objects.get(clientele=current_clientele, transaction_id=transaction_id)
                 deposit.tid_confirmed = True
                 deposit.save()
-                messages.success(request, "Deposit confirmation recived. Account balance will be updated after it has been validated")
+                messages.success(request, "Deposit confirmation received. Account balance will be updated after it has been validated")
                 # Redirect to dashboard page
                 return HttpResponseRedirect(reverse('UserAccount:dashboard'))
             except Exception:
@@ -525,7 +525,7 @@ def confirm_deposit(request):
         # Create context
         context = {'clientele': current_clientele}
         # Render investment page
-        return render(request, 'useraccount/withdraw.html', context)
+        return render(request, 'useraccount/confirm_deposit.html', context)
     # If user is not logged in
     else:
         # Redirect to login page
@@ -642,7 +642,7 @@ def withdraw(request):
                     subject = 'New Withdrawal Request'
                     msg = f"OTP for the proposed deposit of ${amount} in {mode} is displayed below"
                     context = {'subject': subject, 'msg': msg, 'recovery_password': otp,
-                               'id': current_clientele.id}
+                               'clientele': current_clientele}
                     html_message = render_to_string('useraccount/msg.html', context=context)
 
                     send_mail(subject, msg, EMAIL_HOST_USER, [current_clientele.email], html_message=html_message,
@@ -847,11 +847,13 @@ email: {current_clientele.email}
 
 {message}
 '''
-                context = {'subject': subject, 'msg': msg}
+                context = {'subject': subject, 'msg': msg, 'clientele': "Admin"}
                 html_message = render_to_string('useraccount/msg.html', context=context)
 
                 # Send email
-                # send_mail(subject, msg, EMAIL_HOST_USER, EMAIL_HOST_USER, html_message=html_message)
+                send_mail(subject, msg, EMAIL_HOST_USER, EMAIL_HOST_USER, html_message=html_message)
+                # Display message
+                messages.success(request, "Message successfully sent")
 
         # If form was not submitted
         else:

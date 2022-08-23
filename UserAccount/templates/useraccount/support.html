@@ -14,14 +14,14 @@
 {% block main %}
 <div id="page-content-wrapper" class="dashboard-content">
 
-    <div class="page-content inset">
+    <div class="page-content inset" style="height:100vh;">
         <div class="crypto-container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="recent-transaction-history">
-                                <div class="col-xl-12">
+                                <div class="col-xl-12" style="margin:0px">
                                     <div class="crypto-wallet">
                                         <h2 class="crypto-stitle">Blockstream Help/Support</h2>
                                         <div class="cfi m-2">
@@ -30,8 +30,8 @@
                                                 <form action="" method="post">
                                                     {% csrf_token %}
                                                     {% include 'useraccount/django_form.html' with form=form %}
-                                                    <div class="cp-btn" style="text-align:center">
-                                                        <button class="btn-style-b-m" type="submit">Send Message</button>
+                                                    <div class="cp-btn">
+                                                        <button class="cfi-button ml-4" type="submit">Send Message</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -32,10 +32,17 @@ def contact(request):
             name = form.cleaned_data.get('name').strip()
             email = form.cleaned_data.get('email').strip()
             message = form.cleaned_data.get('message').strip()
+            msg = f'''
+            from: {name}
+            email: {email}
+
+
+            {message}
+            '''
 
             # Create and send mail to the clientele
             subject = 'Password Recovery'
-            context = {'subject': subject, 'msg': message, 'name': name, 'email': email}
+            context = {'subject': subject, 'msg': msg, 'clientele': "Admin"}
             html_message = render_to_string('useraccount/msg.html', context=context)
 
             send_mail(subject, message, EMAIL_HOST_USER, EMAIL_HOST_USER, html_message=html_message,

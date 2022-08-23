@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block refer %}mm-active{% endblock %}
+{% block deposit %}mm-active{% endblock %}
 
 <!--Title Block-->
 {% block title %}
@@ -34,9 +34,11 @@
                                             <p><b>{{ currency }}</b></p>
                                             <div class="m-4 p-4">
                                                 <small>Confirm your deposit in order to validate deposit made</small>
-                                                <a href="{% url 'UserAccount:confirm_deposit' %}" class="button is-link is-round">
+                                                <p>
+                                                    <a href="{% url 'UserAccount:confirm_deposit' %}" class="button is-link is-round">
                                                     Confirm deposit
                                                 </a>
+                                                </p>
                                             </div>
                                         </div>
 

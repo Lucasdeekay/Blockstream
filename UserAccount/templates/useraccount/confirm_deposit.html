@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block refer %}mm-active{% endblock %}
+{% block deposit %}mm-active{% endblock %}
 
 <!--Title Block-->
 {% block title %}
@@ -14,7 +14,7 @@
 {% block main %}
 <div id="page-content-wrapper" class="dashboard-content">
 
-    <div class="page-content inset">
+    <div class="page-content inset" style="height:100vh;">
         <div class="crypto-container">
             <div class="row">
                 <div class="col-xl-12">
@@ -22,7 +22,7 @@
                         <div class="col-xl-12">
                             <div class="crypto-overview-wrapper">
                                 <div class="col-xl-12">
-                                    <marquee behavior="infinite" direction="left">
+                                    <marquee behavior="infinite" direction="left" style="color:blue">
                                         Invalid transaction id will cause deposit made to remain unverified
                                     </marquee>
                                     <div class="">
@@ -31,11 +31,12 @@
                                             <form action="" method="post">
                                                 <div class="cfi m-2">
                                                     <label for="transaction_id">Transaction ID</label>
-                                                    <small class="crypto-stitle">Enter Transaction ID sent to your email below</small>
-                                                    <input type="text" class="col-3" style="background-color: #01CD8C; color: white;"
-                                                       name="transaction_id" id="transaction_id">
+                                                    <input type="text" class="col-xl-3" style="color: white;"
+                                                        name="transaction_id" id="transaction_id" placeholder="Enter Transaction ID">
                                                 </div>
-                                                <button class="button is-link is-round" style="padding: 0px 10px; color: black" type="submit">Submit</button>
+                                                <div class="cp-btn">
+                                                        <button class="cfi-button ml-4" type="submit">Submit</button>
+                                                    </div>
                                             </form>
                                         </div>
 

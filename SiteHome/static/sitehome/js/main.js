@@ -194,4 +194,6 @@ $(document).ready(function () {
 	    $('#err-sec').hide();
 	});
 
+	$('#suc-sec').slideToggle();
+	$('#err-sec').slideToggle();
 });

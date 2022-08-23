@@ -209,7 +209,7 @@ class TextForm(forms.Form):
                 'placeholder': 'Enter Message...',
                 'required': '',
                 'class': 'input',
-                'cols': 50,
+                'cols': 30,
                 'style': 'height:200px',
             }
         )

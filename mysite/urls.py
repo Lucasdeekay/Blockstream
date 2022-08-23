@@ -31,4 +31,4 @@ if settings.DEBUG:
 handler400 = "SiteHome.views.error_404"
 handler403 = "SiteHome.views.error_404"
 handler404 = "SiteHome.views.error_404"
-# handler500 = "SiteHome.views.error_404"
+handler500 = "SiteHome.views.error_404"
