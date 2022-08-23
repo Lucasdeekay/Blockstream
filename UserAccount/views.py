@@ -140,9 +140,9 @@ def forgotten_password(request):
                 email = form.cleaned_data['email'].strip()
                 # Get all users
                 all_user = User.objects.all()
+                print(all_user)
                 # Loop
                 for user in all_user:
-                    print(user.username, user.email)
                     # Check if user exists
                     if user.username == username and user.email == email:
                         # Get clientele
@@ -179,12 +179,6 @@ def forgotten_password(request):
                         messages.success(request, "Recovery password has been successfully sent")
                         # Redirect to password retrieval page
                         return HttpResponseRedirect(reverse('UserAccount:password_retrieval', args=(clientele.id,)))
-                    # If user is not found by the end of the loop
-                    else:
-                        # Display message
-                        messages.error(request, "User profile does not match")
-                        # Redirect to forgot password page
-                        return HttpResponseRedirect(reverse('UserAccount:forgot_password'))
                 # If user is not found by the end of the loop
                 else:
                     # Display message
