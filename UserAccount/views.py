@@ -748,9 +748,11 @@ def transaction(request):
             deposit_paginator = Paginator(deposit, 20)  # Show 20 deposits per page.
             deposit_page_number = request.GET.get('page')  # Get each paginated pages
             deposit_obj = deposit_paginator.get_page(deposit_page_number)  # Insert the number of items into page
+            messages.error(request, deposit)
         except Exception:
             # Set current clientele deposits to None
             pass
+        print(deposit)
         try:
             # Get current clientele withdrawals
             withdrawal = Withdrawal.objects.get(clientele=current_clientele).order_by('-date')
@@ -770,6 +772,8 @@ def transaction(request):
         except Exception:
             # Set current clientele referrals to None
             pass
+
+        messages.error(request, deposit)
         # Create context
         context = {
             'clientele': current_clientele,
