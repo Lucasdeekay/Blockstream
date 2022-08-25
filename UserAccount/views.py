@@ -423,7 +423,7 @@ def dashboard(request):
         # Update account
         account.update()
 
-        check_investment_expiry()
+        # check_investment_expiry()
         # Create context
         context = {'account': account, 'clientele': current_clientele}
         # Render dashboard page
@@ -546,7 +546,7 @@ def invest(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
-        check_investment_expiry()
+        # check_investment_expiry()
         # Check if form was submitted
         if request.method == 'POST':
             # Get form
@@ -904,7 +904,7 @@ def admin_manager(request):
     # Check if user is logged in and not a super user
     if (request.user.is_authenticated and not request.user.is_superuser) and \
             (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
-        check_investment_expiry()
+        # check_investment_expiry()
         try:
             # Get all the deposits made and withdrawal requested
             deposits = Deposit.objects.filter(tid_confirmed=True, is_verified=False).order_by('-date')
