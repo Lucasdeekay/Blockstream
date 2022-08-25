@@ -56,10 +56,11 @@
                                                     <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
                                                    <td class="col-3">
-                                                        <button type="button"
-                                                                class="btn btn-sm{% if data.is_verified %}btn-success{% else %}btn-warning{% endif %}">
-                                                            {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
-                                                        </button>
+                                                       {% if data.is_verified %}
+                                                       <button class="btn btn-sm btn-success">Verified</button>
+                                                       {% else %}
+                                                       <button class="btn btn-sm btn-warning">Waiting</button>
+                                                       {% endif %}
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>
@@ -105,10 +106,11 @@
                                                     <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
                                                     <td class="col-3">
-                                                        <button type="button"
-                                                                class="btn btn-sm{% if data.is_verified %}btn-success{% else %}btn-warning{% endif %}">
-                                                            {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
-                                                        </button>
+                                                       {% if data.is_verified %}
+                                                       <button class="btn btn-sm btn-success">Verified</button>
+                                                       {% else %}
+                                                       <button class="btn btn-sm btn-warning">Waiting</button>
+                                                       {% endif %}
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>
