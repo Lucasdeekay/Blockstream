@@ -55,9 +55,9 @@
                                                 <tr class="border-top">
                                                     <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3">
+                                                   <td class="col-3">
                                                         <button
-                                                                class="button is-small{% if data.is_verified %}is-success{% else %}is-warning{% endif %}">
+                                                                class="btn btn-sm{% if data.is_verified %}btn-success{% else %}btn-warning{% endif %}">
                                                             {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
                                                         </button>
                                                     </td>
@@ -106,7 +106,7 @@
                                                     <td class="col-3">{{ data.mode }}</td>
                                                     <td class="col-3">
                                                         <button
-                                                                class="button is-small{% if data.is_verified %}is-success{% else %}is-warning{% endif %}">
+                                                                class="btn btn-sm{% if data.is_verified %}btn-success{% else %}btn-warning{% endif %}">
                                                             {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
                                                         </button>
                                                     </td>
