@@ -737,21 +737,20 @@ def transaction(request):
         current_clientele = get_object_or_404(Clientele, user=request.user)
 
         # Get current clientele deposits
-        deposit = Deposit.objects.get(clientele=current_clientele).order_by('-date')
+        deposit = Deposit.objects.filter(clientele=current_clientele).order_by('-date')
         deposit_paginator = Paginator(deposit, 20)  # Show 20 deposits per page.
         deposit_page_number = request.GET.get('page')  # Get each paginated pages
         deposit_obj = deposit_paginator.get_page(deposit_page_number)  # Insert the number of items into page
         messages.error(request, deposit)
 
         # Get current clientele withdrawals
-        withdrawal = Withdrawal.objects.get(clientele=current_clientele).order_by('-date')
+        withdrawal = Withdrawal.objects.filter(clientele=current_clientele).order_by('-date')
         withdrawal_paginator = Paginator(withdrawal, 20)  # Show 20 withdrawals per page.
         withdrawal_page_number = request.GET.get('page')  # Get each paginated pages
         withdrawal_obj = withdrawal_paginator.get_page(withdrawal_page_number)  # Insert the number of items into page
 
-
         # Get current clientele referrals
-        referral = Referral.objects.get(user=request.user).order_by('-date')
+        referral = Referral.objects.filter(user=request.user).order_by('-date')
         referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
         referral_page_number = request.GET.get('page')  # Get each paginated pages
         referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
@@ -782,22 +781,14 @@ def refer(request):
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
 
-        try:
-            # Get current clientele referer
-            referer = get_object_or_404(Referral, user=request.user)
-        except Exception:
-            referer = None
+        # Get current clientele referer
+        referer = get_object_or_404(Referral, user=request.user)
 
-        try:
-            # Get current clientele referrals
-            referral = get_object_or_404(Referral, referer=current_clientele).order_by('-date')
-            referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
-            referral_page_number = request.GET.get('page')  # Get each paginated pages
-            referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
-        except Exception:
-            # Set value to None
-            referral = None
-            referral_obj = None
+        # Get current clientele referrals
+        referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
+        referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
+        referral_page_number = request.GET.get('page')  # Get each paginated pages
+        referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
 
         # Create context
         context = {
@@ -919,38 +910,24 @@ def admin_manager(request):
     # Check if user is logged in and not a super user
     if (request.user.is_authenticated and not request.user.is_superuser) and \
             (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
-        deposits = deposits_obj = withdrawals = withdrawals_obj = None
 
-        try:
-            # Get all the deposits made and withdrawal requested
-            deposits = get_object_or_404(Deposit, tid_confirmed=True, is_verified=False).order_by('-date')
-            deposits_paginator = Paginator(deposits, 20)  # Show 20 deposits per page.
-            deposits_page_number = request.GET.get('page')  # Get each paginated pages
-            deposits_obj = deposits_paginator.get_page(deposits_page_number)  # Insert the number of items into page
-        except Exception:
-            # Set current clientele deposits to None
-            deposit = None
-            deposit_obj = None
+        # Get all the deposits made and withdrawal requested
+        deposits = Deposit.objects.filter(tid_confirmed=True, is_verified=False).order_by('-date')
+        deposits_paginator = Paginator(deposits, 20)  # Show 20 deposits per page.
+        deposits_page_number = request.GET.get('page')  # Get each paginated pages
+        deposits_obj = deposits_paginator.get_page(deposits_page_number)  # Insert the number of items into page
 
-        try:
-            withdrawals = get_object_or_404(Withdrawal, otp_confirmed=True, is_verified=False).order_by('-date')
-            withdrawals_paginator = Paginator(withdrawals, 20)  # Show 20 withdrawals per page.
-            withdrawals_page_number = request.GET.get('page')  # Get each paginated pages
-            withdrawals_obj = withdrawals_paginator.get_page(withdrawals_page_number)  # Insert the number of items into page
-        except Exception:
-            # Set current clientele withdrawals to None
-            withdrawal = None
-            withdrawal_obj = None
 
-        try:
-            active_investment = get_object_or_404(Investment, is_active=True).order_by('-date')
-            active_investment_paginator = Paginator(active_investment, 20)  # Show 20 active investment per page.
-            active_investment_page_number = request.GET.get('page')  # Get each paginated pages
-            active_investment_obj = active_investment_paginator.get_page(active_investment_page_number)  # Insert the number of items into page
-        except Exception:
-            # Set current clientele referrals to None
-            active_investment = None
-            active_investment_obj = None
+        withdrawals = Withdrawal.objects.filter(otp_confirmed=True, is_verified=False).order_by('-date')
+        withdrawals_paginator = Paginator(withdrawals, 20)  # Show 20 withdrawals per page.
+        withdrawals_page_number = request.GET.get('page')  # Get each paginated pages
+        withdrawals_obj = withdrawals_paginator.get_page(withdrawals_page_number)  # Insert the number of items into page
+
+
+        active_investment = get_object_or_404(Investment, is_active=True).order_by('-date')
+        active_investment_paginator = Paginator(active_investment, 20)  # Show 20 active investment per page.
+        active_investment_page_number = request.GET.get('page')  # Get each paginated pages
+        active_investment_obj = active_investment_paginator.get_page(active_investment_page_number)  # Insert the number of items into page
 
         # Create context
         context = {
