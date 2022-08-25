@@ -53,9 +53,11 @@
                                                 {% else %}
                                                 {% for data in deposit %}
                                                 <tr class="border-top">
-                                                    <td class="col-3">${{ data.profit }}</td>
+                                                    <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3">{{ data.is_verified }}</td>
+                                                    <td class="col-3 badge badge-sm badge-{% if data.is_verified %}success{% else %}warning{% endif %}">
+                                                        {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                    </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>
                                                 {% endfor %}
@@ -97,9 +99,11 @@
                                                 {% else %}
                                                 {% for data in withdrawal %}
                                                 <tr class="border-top">
-                                                    <td class="col-3">${{ data.profit }}</td>
+                                                    <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3">{{ data.is_verified }}</td>
+                                                    <td class="col-3 badge badge-sm badge-{% if data.is_verified %}success{% else %}warning{% endif %}">
+                                                        {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                    </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>
                                                 {% endfor %}

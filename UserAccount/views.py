@@ -741,7 +741,6 @@ def transaction(request):
         deposit_paginator = Paginator(deposit, 20)  # Show 20 deposits per page.
         deposit_page_number = request.GET.get('page')  # Get each paginated pages
         deposit_obj = deposit_paginator.get_page(deposit_page_number)  # Insert the number of items into page
-        messages.error(request, deposit)
 
         # Get current clientele withdrawals
         withdrawal = Withdrawal.objects.filter(clientele=current_clientele).order_by('-date')
