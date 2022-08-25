@@ -14,7 +14,7 @@
 {% block main %}
 
 <div id="page-content-wrapper" class="dashboard-content">
-    <div class="page-content inset">
+    <div class="page-content inset"  style="height:100vh;">
         <div class="crypto-container">
             <div class="row">
                 <div class="col-xl-12">
@@ -42,13 +42,13 @@
                                                 {% else %}
                                                 {% for data in deposits %}
                                                 <tr class="border-top">
-                                                    <td class="col-3">${{ data.profit }}</td>
+                                                    <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                     <td class="col-3"><a href="{% url 'SiteHome:approve' 'deposit' data.id %}"
-                                                                         class="btn btn-success">Approve</a></td>
+                                                                         class="btn btn-sm btn-success">Approve</a></td>
                                                     <td class="col-3"><a href="{% url 'SiteHome:decline' 'deposit' data.id %}"
-                                                                         class="btn btn-danger">Danger</a></td>
+                                                                         class="btn btn-sm btn-danger">Danger</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 {% endif %}
@@ -92,9 +92,9 @@
                                                     <td class="col-3">{{ data.mode }}</td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                     <td class="col-3"><a href="{% url 'SiteHome:approve' 'withdrawal' data.id %}"
-                                                                         class="btn btn-success">Approve</a></td>
+                                                                         class="btn btn-sm btn-success">Approve</a></td>
                                                     <td class="col-3"><a href="{% url 'SiteHome:decline' 'withdrawal' data.id %}"
-                                                                         class="btn btn-danger">Danger</a></td>
+                                                                         class="btn btn-sm btn-danger">Danger</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 {% endif %}
@@ -145,7 +145,7 @@
                                                         <input type="number" name="{{ data.id }}" value="{{ data.amount }}">
                                                     </td>
                                                     <td class="col-2"><a href="{% url 'SiteHome:update_profit' data.id %}"
-                                                                         class="btn btn-success">Update</a></td>
+                                                                         class="btn btn-sm btn-success">Update</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 {% endif %}
