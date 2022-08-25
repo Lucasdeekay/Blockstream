@@ -732,6 +732,13 @@ def profit_record(request):
 def transaction(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
+        deposit = None
+        deposit_obj = None
+        withdrawal = None
+        withdrawal_obj = None
+        referral = None
+        referral_obj = None
+
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
 
