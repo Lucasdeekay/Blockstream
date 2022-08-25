@@ -521,7 +521,7 @@ def confirm_deposit(request):
             except Exception:
                 messages.success(request, "Deposit record does not exist")
                 # Redirect to withdraw page
-                return HttpResponseRedirect(reverse('UserAccount:deposit'))
+                return HttpResponseRedirect(reverse('UserAccount:confirm_deposit'))
 
         # Create context
         context = {'clientele': current_clientele}
@@ -687,7 +687,7 @@ def confirm_withdrawal(request):
                 # Redirect to dashboard page
                 return HttpResponseRedirect(reverse('UserAccount:dashboard'))
             except Exception:
-                messages.success(request, "Withdrawal request cancelled due to invalid OTP")
+                messages.success(request, "Withdrawal request cancelled due to invalid OTP. Try again!")
                 withdrawal = Withdrawal.objects.get(current_clientele=current_clientele, otp_confirmed=False)
                 withdrawal.delete()
                 # Redirect to withdraw page

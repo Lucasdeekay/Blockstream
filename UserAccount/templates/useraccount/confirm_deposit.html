@@ -29,9 +29,10 @@
                                         <h2 class="crypto-stitle">Confirm Deposit Made</h2>
                                         <div class="col-xl-12">
                                             <form action="" method="post">
+                                                {% csrf_token %}
                                                 <div class="cfi m-2">
                                                     <label for="transaction_id">Transaction ID</label>
-                                                    <input type="text" class="col-xl-3" style="color: white;"
+                                                    <input type="text" class="col-xl-3"
                                                         name="transaction_id" id="transaction_id" placeholder="Enter Transaction ID">
                                                 </div>
                                                 <div class="cp-btn">
