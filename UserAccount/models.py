@@ -49,7 +49,7 @@ class Account(models.Model):
         self.active_investments = len(Investment.objects.filter(clientele=self.clientele, is_active=True))
         self.total_deposit = sum(Deposit.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
         self.total_withdrawal = sum(Withdrawal.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
-        self.ref_bonus = sum(Referral.objects.filter(clientele=self.clientele.user).values_list('bonus', flat=True))
+        self.ref_bonus = sum(Referral.objects.filter(user=self.clientele.user).values_list('bonus', flat=True))
 
 
 class Deposit(models.Model):
