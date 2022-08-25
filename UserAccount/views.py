@@ -789,11 +789,13 @@ def refer(request):
 
         # Get current clientele referrals
         if len(Referral.objects.filter(referer=current_clientele).values_list(flat=True)) != 0:
+            messages.success(request, "Yes")
             referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
             referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
             referral_page_number = request.GET.get('page')  # Get each paginated pages
             referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
         else:
+            messages.error(request, "No")
             referral = None
             referral_obj = None
 
