@@ -743,9 +743,7 @@ def transaction(request):
             deposit_obj = deposit_paginator.get_page(deposit_page_number)  # Insert the number of items into page
         except Exception:
             # Set current clientele deposits to None
-            deposit = None
-            deposit_obj = None
-
+            pass
         try:
             # Get current clientele withdrawals
             withdrawal = Withdrawal.objects.get(clientele=current_clientele).order_by('-date')
@@ -754,8 +752,7 @@ def transaction(request):
             withdrawal_obj = withdrawal_paginator.get_page(withdrawal_page_number)  # Insert the number of items into page
         except Exception:
             # Set current clientele withdrawals to None
-            withdrawal = None
-            withdrawal_obj = None
+            pass
 
         try:
             # Get current clientele referrals
@@ -765,9 +762,7 @@ def transaction(request):
             referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
         except Exception:
             # Set current clientele referrals to None
-            referral = None
-            referral_obj = None
-
+            pass
         # Create context
         context = {
             'clientele': current_clientele,
