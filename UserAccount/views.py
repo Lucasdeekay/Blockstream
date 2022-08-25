@@ -788,10 +788,14 @@ def refer(request):
         referer = get_object_or_404(Referral, user=request.user)
 
         # Get current clientele referrals
-        referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
-        referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
-        referral_page_number = request.GET.get('page')  # Get each paginated pages
-        referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
+        if len(Referral.objects.filter(referer=current_clientele).values_list(flat=True)) != 0:
+            referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
+            referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
+            referral_page_number = request.GET.get('page')  # Get each paginated pages
+            referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
+        else:
+            referral = None
+            referral_obj = None
 
         # Create context
         context = {
@@ -835,7 +839,7 @@ email: {current_clientele.email}
                 html_message = render_to_string('useraccount/msg.html', context=context)
 
                 # Send email
-                send_mail(subject, msg, EMAIL_HOST_USER, EMAIL_HOST_USER, html_message=html_message)
+                send_mail(subject, msg, EMAIL_HOST_USER, [EMAIL_HOST_USER], html_message=html_message)
                 # Display message
                 messages.success(request, "Message successfully sent")
 
