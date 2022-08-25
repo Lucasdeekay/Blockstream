@@ -55,8 +55,11 @@
                                                 <tr class="border-top">
                                                     <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3 badge badge-sm badge-{% if data.is_verified %}success{% else %}warning{% endif %}">
-                                                        {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                    <td class="col-3">
+                                                        <button
+                                                                class="button is-small{% if data.is_verified %}is-success{% else %}is-warning{% endif %}">
+                                                            {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                        </button>
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>
@@ -101,8 +104,11 @@
                                                 <tr class="border-top">
                                                     <td class="col-3">${{ data.amount }}</td>
                                                     <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3 badge badge-sm badge-{% if data.is_verified %}success{% else %}warning{% endif %}">
-                                                        {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                    <td class="col-3">
+                                                        <button
+                                                                class="button is-small{% if data.is_verified %}is-success{% else %}is-warning{% endif %}">
+                                                            {% if data.is_verified %}Verfied{% else %}Waiting{% endif %}
+                                                        </button>
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
                                                 </tr>

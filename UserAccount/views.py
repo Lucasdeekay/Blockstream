@@ -69,6 +69,7 @@ def check_withdrawal_range(request, amount):
 def log_in(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
+        messages.error(User.objects.filter(username=request.user.username, groups__name='Manager').exists())
         # If user is a manager
         if User.objects.filter(username=request.user.username, groups__name='Manager').exists():
             # Redirect to the admin page
