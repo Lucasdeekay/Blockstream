@@ -44,6 +44,14 @@ class Account(models.Model):
         return f"{self.clientele} -> {self.balance}"
 
 
+    def update(self):
+        self.total_investments = len(Investment.objects.filter(clientele=self.clientele))
+        self.active_investments = len(Investment.objects.filter(clientele=self.clientele, is_active=True))
+        self.total_deposit = sum(Deposit.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
+        self.total_withdrawal = sum(Withdrawal.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
+        self.ref_bonus = sum(Referral.objects.filter(clientele=self.clientele).values_list('bonus', flat=True))
+
+
 class Deposit(models.Model):
     clientele = models.ForeignKey(Clientele, on_delete=models.CASCADE)
     mode = models.CharField(max_length=10, null=False, choices=[

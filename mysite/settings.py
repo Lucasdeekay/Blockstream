@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'compressor',
     'SiteHome',
-    'UserAccount.apps.UseraccountConfig',
+    'UserAccount',
     'django_apscheduler',
 ]
 

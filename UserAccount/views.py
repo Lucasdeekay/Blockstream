@@ -15,23 +15,10 @@ from django.utils import timezone
 
 from UserAccount.forms import RegistrationForm, LoginForm, ForgotPasswordForm, PasswordRetrievalForm, \
     UpdatePasswordForm, AmountForm, TextForm
-from UserAccount.jobs import updateInvestmentDetails, updateWithdrawalDetails, updateDepositDetails
 from UserAccount.models import Clientele, Password, Referral, Account, Deposit, Investment, Withdrawal
 
 # Create your views here.
 from mysite.settings import EMAIL_HOST_USER
-
-# Create an object instance of the scheduler to run scheduled jobs in the background
-scheduler = BackgroundScheduler()
-
-
-# Functions adds all scheduled jobs
-def scheduled_job(user):
-    # Add jobs to the scheduler that need to run in the background
-    # Using lambda in order to pass arguments and also make the functions callable
-    scheduler.add_job(lambda: updateInvestmentDetails(user), 'interval', seconds=30)
-    scheduler.add_job(lambda: updateDepositDetails(user), 'interval', seconds=30)
-    scheduler.add_job(lambda: updateWithdrawalDetails(user), 'interval', seconds=30)
 
 
 # Custom functions
@@ -89,13 +76,6 @@ def log_in(request):
                 if user is not None:
                     # Login the user
                     login(request, user)
-
-                    # Create an object instance of the scheduler to run scheduled jobs in the background
-                    scheduler = BackgroundScheduler()
-                    # Get all scheduled jobs
-                    scheduled_job(user)
-                    # Start job scheculing
-                    scheduler.start()
 
                     # Send message
                     messages.success(request, "Login successful")
@@ -433,6 +413,8 @@ def dashboard(request):
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Get current clientele's account
         account = get_object_or_404(Account, clientele=current_clientele)
+        # Update account
+        account.update()
         # Create context
         context = {'account': account, 'clientele': current_clientele}
         # Render dashboard page
