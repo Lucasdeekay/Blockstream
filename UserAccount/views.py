@@ -581,6 +581,8 @@ def invest(request):
                     Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan, date=timezone.now())
                     # update account
                     account.balance -= amount
+                    account.active_investments += 1
+                    account.total_investments += 1
                     account.save()
                     # Redirect to dashboard page
                     return HttpResponseRedirect(reverse('UserAccount:dashboard'))
@@ -976,6 +978,7 @@ def approve(request, mode, id):
             # Update Account balance
             account = Account.objects.get(clientele=depo.clientele)
             account.balance += depo.amount
+            account.total_deposit += depo.amount
             account.save()
 
             # Get referer
@@ -995,7 +998,8 @@ def approve(request, mode, id):
 
             # Update Account balance
             account = Account.objects.get(clientele=withdrawal.clientele)
-            account.balance += withdrawal.amount
+            account.balance -= withdrawal.amount
+            account.total_withdrawal += withdrawal.amount
             account.save()
 
         # Render admin manager page
