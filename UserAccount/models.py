@@ -47,8 +47,8 @@ class Account(models.Model):
     def update(self):
         self.total_investments = len(Investment.objects.filter(clientele=self.clientele))
         self.active_investments = len(Investment.objects.filter(clientele=self.clientele, is_active=True))
-        self.total_deposit = sum(Deposit.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
-        self.total_withdrawal = sum(Withdrawal.objects.filter(clientele=self.clientele).values_list('amount', flat=True))
+        self.total_deposit = sum(Deposit.objects.filter(clientele=self.clientele, is_verified=True).values_list('amount', flat=True))
+        self.total_withdrawal = sum(Withdrawal.objects.filter(clientele=self.clientele, is_verified=True).values_list('amount', flat=True))
         self.ref_bonus = sum(Referral.objects.filter(user=self.clientele.user).values_list('bonus', flat=True))
 
 
@@ -101,6 +101,28 @@ class Investment(models.Model):
 
     def __str__(self):
         return f"{self.clientele} -> {self.plan}"
+
+    def expiry(self):
+        if self.plan =='Basic':
+            if (timezone.now() - self.time) >= timezone.timedelta(weeks=2):
+                self.is_active = False
+            else:
+                pass
+        elif self.plan =='Silver':
+            if (timezone.now() - self.time) >= timezone.timedelta(weeks=4):
+                self.is_active = False
+            else:
+                pass
+        elif self.plan =='Gold':
+            if (timezone.now() - self.time) >= timezone.timedelta(weeks=12):
+                self.is_active = False
+            else:
+                pass
+        else:
+            if (timezone.now() - self.time) >= timezone.timedelta(weeks=24):
+                self.is_active = False
+            else:
+                pass
 
 
 class Referral(models.Model):

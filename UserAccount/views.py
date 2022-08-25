@@ -42,6 +42,13 @@ def check_investment_plan_range(request, plan, amount):
         return HttpResponseRedirect(reverse("UserAccount:invest"))
 
 
+# Function checks if investments have expired
+def check_investment_expiry():
+    all_inv = Investment.objects.all()
+    for i in all_inv:
+        i.expiry()
+
+
 # Check if amount is out of withdrawal range
 def check_withdrawal_range(request, amount):
     # Check if amount is not out of range
@@ -415,6 +422,8 @@ def dashboard(request):
         account = get_object_or_404(Account, clientele=current_clientele)
         # Update account
         account.update()
+
+        check_investment_expiry()
         # Create context
         context = {'account': account, 'clientele': current_clientele}
         # Render dashboard page
@@ -537,6 +546,7 @@ def invest(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
+        check_investment_expiry()
         # Check if form was submitted
         if request.method == 'POST':
             # Get form
@@ -560,7 +570,7 @@ def invest(request):
                     return HttpResponseRedirect(reverse('UserAccount:invest'))
                 else:
                     # Create a new Investment instance
-                    Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan, date=timezone.now())
+                    Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan, date=timezone.now(), is_active=True)
                     # update account
                     account.balance -= amount
                     account.active_investments += 1
@@ -667,9 +677,7 @@ def confirm_withdrawal(request):
                 # Redirect to dashboard page
                 return HttpResponseRedirect(reverse('UserAccount:dashboard'))
             except Exception:
-                messages.success(request, "Withdrawal request cancelled due to invalid OTP. Try again!")
-                withdrawal = Withdrawal.objects.get(current_clientele=current_clientele, otp_confirmed=False)
-                withdrawal.delete()
+                messages.error(request, "Withdrawal request cancelled due to invalid OTP. Try again!")
                 # Redirect to withdraw page
                 return HttpResponseRedirect(reverse('UserAccount:withdraw'))
 
@@ -896,7 +904,7 @@ def admin_manager(request):
     # Check if user is logged in and not a super user
     if (request.user.is_authenticated and not request.user.is_superuser) and \
             (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
-
+        check_investment_expiry()
         try:
             # Get all the deposits made and withdrawal requested
             deposits = Deposit.objects.filter(tid_confirmed=True, is_verified=False).order_by('-date')
@@ -980,12 +988,10 @@ def approve(request, mode, id):
 
             # Update Account balance
             account = Account.objects.get(clientele=withdrawal.clientele)
-            account.balance -= withdrawal.amount
-            account.total_withdrawal += withdrawal.amount
             account.save()
 
         # Render admin manager page
-        return HttpResponseRedirect(reverse('UserAccount:admin_manager'))
+        return HttpResponseRedirect(reverse('SiteHome:admin_manager'))
 
     # If user is not logged in
     else:
@@ -1009,8 +1015,14 @@ def decline(request, mode, id):
         else:
             # Get specified withdrawal
             withdrawal = get_object_or_404(Withdrawal, id=id)
+            # Update Account balance
+            account = Account.objects.get(clientele=withdrawal.clientele)
+            account.total_withdrawal -= withdrawal.amount
             # Change withdrawal information
             withdrawal.delete()
+
+        # Render admin manager page
+        return HttpResponseRedirect(reverse('SiteHome:admin_manager'))
 
     # If user is not logged in
     else:

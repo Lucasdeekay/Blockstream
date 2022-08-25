@@ -59,7 +59,7 @@
                                                        {% if data.is_verified %}
                                                        <button class="btn btn-sm btn-success">Verified</button>
                                                        {% else %}
-                                                       <button class="btn btn-sm btn-warning">Waiting</button>
+                                                       <button class="btn btn-sm btn-warning">Pending</button>
                                                        {% endif %}
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
@@ -107,9 +107,9 @@
                                                     <td class="col-3">{{ data.mode }}</td>
                                                     <td class="col-3">
                                                        {% if data.is_verified %}
-                                                       <button class="btn btn-sm btn-success">Verified</button>
+                                                       <button class="btn btn-sm btn-success">Paid</button>
                                                        {% else %}
-                                                       <button class="btn btn-sm btn-warning">Waiting</button>
+                                                       <button class="btn btn-sm btn-warning">Pending</button>
                                                        {% endif %}
                                                     </td>
                                                     <td class="col-3">{{ data.date }}</td>
