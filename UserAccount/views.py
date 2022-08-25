@@ -587,6 +587,9 @@ def invest(request):
                 else:
                     # Create a new Investment instance
                     Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan, date=timezone.now())
+                    # update account
+                    account.balance -= amount
+                    account.save()
                     # Redirect to dashboard page
                     return HttpResponseRedirect(reverse('UserAccount:dashboard'))
 
@@ -961,6 +964,11 @@ def approve(request, mode, id):
             deposit.is_verified = True
             deposit.save()
 
+            # Update Account balance
+            account = Account.objects.get(clientele=deposit.clientele)
+            account.balance += deposit.amount
+            account.save()
+
             # Get referer
             referer = get_object_or_404(Referral, referer=deposit.clientele)
             # Add referer bonus
@@ -975,6 +983,11 @@ def approve(request, mode, id):
             # Change verification status
             withdrawal.is_verified = True
             withdrawal.save()
+
+            # Update Account balance
+            account = Account.objects.get(clientele=withdrawal.clientele)
+            account.balance += withdrawal.amount
+            account.save()
 
         # Render admin manager page
         return HttpResponseRedirect(reverse('UserAccount:admin_manager'))

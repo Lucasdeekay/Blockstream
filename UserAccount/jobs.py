@@ -30,4 +30,4 @@ def updateWithdrawalDetails(user):
     # Get clientele account
     account = get_object_or_404(Account, clientele=clientele)
     # Get all the user deposit amount only and convert it into a list and sum it all up
-    account.total_deposit = sum(Withdrawal.objects.filter(clientele=clientele).values_list('amount', flat=True))
+    account.total_withdrawal = sum(Withdrawal.objects.filter(clientele=clientele).values_list('amount', flat=True))
