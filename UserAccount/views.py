@@ -785,7 +785,10 @@ def refer(request):
         current_clientele = get_object_or_404(Clientele, user=request.user)
 
         # Get current clientele referer
-        referer = get_object_or_404(Referral, user=request.user)
+        try:
+            referer = get_object_or_404(Referral, user=request.user)
+        except Exception:
+            referer= None
 
         # Get current clientele referrals
         try:
