@@ -910,7 +910,8 @@ def settings(request):
 # View displays the admin page of the user
 def admin_manager(request):
     # Check if user is logged in and not a super user
-    if request.user.is_authenticated and not request.user.is_superuser:
+    if (request.user.is_authenticated and not request.user.is_superuser) and \
+            (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
 
         try:
             # Get all the deposits made and withdrawal requested
