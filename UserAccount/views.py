@@ -69,15 +69,8 @@ def check_withdrawal_range(request, amount):
 def log_in(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
-        messages.error(User.objects.filter(username=request.user.username, groups__name='Manager').exists())
-        # If user is a manager
-        if User.objects.filter(username=request.user.username, groups__name='Manager').exists():
-            # Redirect to the admin page
-            return HttpResponseRedirect(reverse('SiteHome:admin_manager'))
-        # Otherwise
-        else:
-            # Redirect to the dashboard
-            return HttpResponseRedirect(reverse('UserAccount:dashboard'))
+        # Redirect to the dashboard
+        return HttpResponseRedirect(reverse('UserAccount:dashboard'))
     # If user is not logged in
     else:
         # Check if form was submitted
@@ -141,7 +134,6 @@ def forgotten_password(request):
                 email = form.cleaned_data['email'].strip()
                 # Get all users
                 all_user = User.objects.all()
-                print(all_user)
                 # Loop
                 for user in all_user:
                     # Check if user exists
@@ -918,8 +910,7 @@ def settings(request):
 # View displays the admin page of the user
 def admin_manager(request):
     # Check if user is logged in and not a super user
-    if (request.user.is_authenticated and not request.user.is_superuser) and \
-            (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
+    if request.user.is_authenticated and not request.user.is_superuser:
 
         try:
             # Get all the deposits made and withdrawal requested

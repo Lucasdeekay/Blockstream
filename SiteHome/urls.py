@@ -13,8 +13,8 @@ urlpatterns = [
     path("contact", views.contact, name="contact"),
     path("privacy", views.privacy, name="privacy"),
     path("terms-and-conditions", views.legal_doc, name="legal_doc"),
-    path('admin-manager', admin_manager, name='admin_manager'),
-    path('admin-manager/approve-<str:mode>-<int:id>', approve, name='approve'),
-    path('admin-manager/decline-<str:mode>-<int:id>', decline, name='decline'),
-    path('admin-manager/update-profit-<int:id>', update_profit, name='update_profit'),
+    path('manager', admin_manager, name='admin_manager'),
+    path('manager/approve-<str:mode>-<int:id>', approve, name='approve'),
+    path('manager/decline-<str:mode>-<int:id>', decline, name='decline'),
+    path('manager/update-profit-<int:id>', update_profit, name='update_profit'),
 ]
