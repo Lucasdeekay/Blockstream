@@ -968,20 +968,20 @@ def approve(request, mode, id):
         # Check the mode of data
         if mode == 'deposit':
             # Get specified deposit
-            deposit = get_object_or_404(Deposit, id=id)
+            depo = get_object_or_404(Deposit, id=id)
             # Change verification status
-            deposit.is_verified = True
-            deposit.save()
+            depo.is_verified = True
+            depo.save()
 
             # Update Account balance
-            account = Account.objects.get(clientele=deposit.clientele)
-            account.balance += deposit.amount
+            account = Account.objects.get(clientele=depo.clientele)
+            account.balance += depo.amount
             account.save()
 
             # Get referer
-            referer = get_object_or_404(Referral, referer=deposit.clientele)
+            referer = get_object_or_404(Referral, referer=depo.clientele)
             # Add referer bonus
-            referer.bonus += 0.02 * deposit.amount
+            referer.bonus += 0.02 * depo.amount
             referer.save()
 
             # Get referer account
