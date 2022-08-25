@@ -104,22 +104,22 @@ class Investment(models.Model):
 
     def expiry(self):
         if self.plan =='Basic':
-            if (timezone.now() - self.time) >= timezone.timedelta(weeks=2):
+            if (timezone.now() - self.date) >= timezone.timedelta(weeks=2):
                 self.is_active = False
             else:
                 pass
         elif self.plan =='Silver':
-            if (timezone.now() - self.time) >= timezone.timedelta(weeks=4):
+            if (timezone.now() - self.date) >= timezone.timedelta(weeks=4):
                 self.is_active = False
             else:
                 pass
         elif self.plan =='Gold':
-            if (timezone.now() - self.time) >= timezone.timedelta(weeks=12):
+            if (timezone.now() - self.date) >= timezone.timedelta(weeks=12):
                 self.is_active = False
             else:
                 pass
         else:
-            if (timezone.now() - self.time) >= timezone.timedelta(weeks=24):
+            if (timezone.now() - self.date) >= timezone.timedelta(weeks=24):
                 self.is_active = False
             else:
                 pass
