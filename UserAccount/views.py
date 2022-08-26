@@ -1036,12 +1036,11 @@ def update_profit(request, id):
     if (request.user.is_authenticated and not request.user.is_superuser) and \
             (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
         # Get profit
-        amount = request.POST.get('amount').strip()
-        messages.error(request, amount)
-        # Get invetment
+        amount = request.POST.get('amount')
+        # Get investment
         investment = get_object_or_404(Investment, id=id)
         # Add profit
-        investment.profit += amount
+        investment.profit += float(amount)
         # Save investment
         investment.save()
 
