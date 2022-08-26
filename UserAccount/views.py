@@ -853,7 +853,16 @@ def settings(request):
         # Get submit data
         submit = request.POST.get('submit')
         # Check if password form is submitted
-        if request.method == 'POST':
+        if submit == 'updateProfile':
+            # Get form data
+            full_name = request.POST.get('full_name').capitalize().strip()
+            phone_no = request.POST.get('phone_no').strip()
+            email = request.POST.get('email').strip()
+
+            # Modify clientele details
+            current_clientele.full_name, current_clientele.phone_no, current_clientele.email = full_name, phone_no, email
+        # Check if profile form was submitted
+        elif request.method == 'POST':
             # Get form
             form = UpdatePasswordForm(request.POST)
             # Check if form is valid
@@ -876,15 +885,6 @@ def settings(request):
                     messages.error(request, "Password does not match")
                     # Redirect back to page
                     return HttpResponseRedirect(reverse('UserAccount:settings'))
-        # Check if profile form was submitted
-        elif submit == 'updateProfile':
-            # Get form data
-            full_name = request.POST.get('full_name').capitalize().strip()
-            phone_no = request.POST.get('phone_no').strip()
-            email = request.POST.get('email').strip()
-
-            # Modify clientele details
-            current_clientele.full_name, current_clientele.phone_no, current_clientele.email = full_name, phone_no, email
         # If form is not submitted
         else:
             # Get form
