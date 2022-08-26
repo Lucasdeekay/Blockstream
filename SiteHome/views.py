@@ -64,3 +64,7 @@ def privacy(request):
 
 def error_404(request, exception):
     return render(request, 'useraccount/404.html')
+
+
+def error_500(request):
+    return render(request, 'useraccount/404.html')

@@ -423,7 +423,7 @@ def dashboard(request):
         # Update account
         account.update()
 
-        # check_investment_expiry()
+        check_investment_expiry()
         # Create context
         context = {'account': account, 'clientele': current_clientele}
         # Render dashboard page
@@ -546,7 +546,7 @@ def invest(request):
     if request.user.is_authenticated and not request.user.is_superuser:
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
-        # check_investment_expiry()
+        check_investment_expiry()
         # Check if form was submitted
         if request.method == 'POST':
             # Get form
@@ -699,7 +699,7 @@ def profit_record(request):
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Get current clientele profits
         investment = Investment.objects.filter(clientele=current_clientele, is_active=True).order_by('-date')
-        investment_paginator = Paginator(investment, 20)  # Show 20 withdrawals per page.
+        investment_paginator = Paginator(investment, 10)  # Show 10 withdrawals per page.
         investment_page_number = request.GET.get('page')  # Get each paginated pages
         investment_obj = investment_paginator.get_page(investment_page_number)  # Insert the number of items into page
         # Create context
@@ -726,19 +726,19 @@ def transaction(request):
 
         # Get current clientele deposits
         deposit = Deposit.objects.filter(clientele=current_clientele).order_by('-date')
-        deposit_paginator = Paginator(deposit, 20)  # Show 20 deposits per page.
+        deposit_paginator = Paginator(deposit, 10)  # Show 10 deposits per page.
         deposit_page_number = request.GET.get('page')  # Get each paginated pages
         deposit_obj = deposit_paginator.get_page(deposit_page_number)  # Insert the number of items into page
 
         # Get current clientele withdrawals
         withdrawal = Withdrawal.objects.filter(clientele=current_clientele).order_by('-date')
-        withdrawal_paginator = Paginator(withdrawal, 20)  # Show 20 withdrawals per page.
+        withdrawal_paginator = Paginator(withdrawal, 10)  # Show 10 withdrawals per page.
         withdrawal_page_number = request.GET.get('page')  # Get each paginated pages
         withdrawal_obj = withdrawal_paginator.get_page(withdrawal_page_number)  # Insert the number of items into page
 
         # Get current clientele referrals
         referral = Referral.objects.filter(user=request.user).order_by('-date')
-        referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
+        referral_paginator = Paginator(referral, 10)  # Show 10 referral per page.
         referral_page_number = request.GET.get('page')  # Get each paginated pages
         referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
 
@@ -777,7 +777,7 @@ def refer(request):
         # Get current clientele referrals
         try:
             referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
-            referral_paginator = Paginator(referral, 20)  # Show 20 referral per page.
+            referral_paginator = Paginator(referral, 10)  # Show 10 referral per page.
             referral_page_number = request.GET.get('page')  # Get each paginated pages
             referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
         except Exception:
@@ -904,11 +904,11 @@ def admin_manager(request):
     # Check if user is logged in and not a super user
     if (request.user.is_authenticated and not request.user.is_superuser) and \
             (User.objects.filter(username=request.user.username, groups__name='Manager').exists()):
-        # check_investment_expiry()
+        check_investment_expiry()
         try:
             # Get all the deposits made and withdrawal requested
             deposits = Deposit.objects.filter(tid_confirmed=True, is_verified=False).order_by('-date')
-            deposits_paginator = Paginator(deposits, 20)  # Show 20 deposits per page.
+            deposits_paginator = Paginator(deposits, 10)  # Show 10 deposits per page.
             deposits_page_number = request.GET.get('page')  # Get each paginated pages
             deposits_obj = deposits_paginator.get_page(deposits_page_number)  # Insert the number of items into page
         except Exception:
@@ -917,7 +917,7 @@ def admin_manager(request):
 
         try:
             withdrawals = Withdrawal.objects.filter(otp_confirmed=True, is_verified=False).order_by('-date')
-            withdrawals_paginator = Paginator(withdrawals, 20)  # Show 20 withdrawals per page.
+            withdrawals_paginator = Paginator(withdrawals, 10)  # Show 10 withdrawals per page.
             withdrawals_page_number = request.GET.get('page')  # Get each paginated pages
             withdrawals_obj = withdrawals_paginator.get_page(withdrawals_page_number)  # Insert the number of items into page
         except Exception:
@@ -925,8 +925,8 @@ def admin_manager(request):
             withdrawals_obj = None
 
         try:
-            active_investment = get_object_or_404(Investment, is_active=True).order_by('-date')
-            active_investment_paginator = Paginator(active_investment, 20)  # Show 20 active investment per page.
+            active_investment = Investment.objects.filter(is_active=True).order_by('-date')
+            active_investment_paginator = Paginator(active_investment, 10)  # Show 10 active investment per page.
             active_investment_page_number = request.GET.get('page')  # Get each paginated pages
             active_investment_obj = active_investment_paginator.get_page(active_investment_page_number)  # Insert the number of items into page
         except Exception:

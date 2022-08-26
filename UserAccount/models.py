@@ -59,7 +59,7 @@ class Deposit(models.Model):
         ('USDT', 'USDT'),
     ])
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    date = models.DateField()
+    date = models.DateTimeField()
     transaction_id = models.CharField(max_length=8)
     tid_confirmed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
@@ -77,7 +77,7 @@ class Withdrawal(models.Model):
     ])
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     wallet = models.CharField(max_length=100, null=True, blank=True)
-    date = models.DateField()
+    date = models.DateTimeField()
     otp = models.CharField(max_length=6)
     otp_confirmed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
@@ -96,7 +96,7 @@ class Investment(models.Model):
         ('Platinum', 'Platinum'),
     ])
     profit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    date = models.DateField()
+    date = models.DateTimeField()
     is_active = models.BooleanField(default=False)
 
     def __str__(self):

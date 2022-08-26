@@ -22,7 +22,7 @@
     <div class="col-12">
         <small class="mb-2">This field is optional <small style="color: red">*</small></small>
         <input type="text" name="referer" placeholder="Referer"
-               class="form__input" id="id_referer" value="{% if ref %}ref{% endif %}">
+               class="form__input" id="id_referer" value="{% if ref %}{{ ref }}{% endif %}">
     </div>
 
     <button class="btn" type="submit">Register</button>
