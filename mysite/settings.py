@@ -20,9 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'www.blockstreamcrypto.com']
+ALLOWED_HOSTS = ['www.blockstreamcrypto.com']
 
 
 # Application definition
@@ -76,28 +76,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '9_=+yje8yez)!9xq2d9$5-rfce19mf1%glruk5n4v24^7snptl'
-#
-# # Database
-# # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-#
-# # Email
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'lucasdennisbiz@gmail.com'
-# EMAIL_HOST_PASSWORD = 'doqqlpgbhhrlpehg'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -192,24 +170,6 @@ SECURE_BROWSER_XSS_FILTER = False
 
 # Whitenoise cache policy
 WHITENOISE_MAX_AGE = 31536000 if not DEBUG else 0
-
-# Django compressor settings
-# COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
-# COMPRESS_ROOT = os.path.abspath(STATIC_ROOT)
-# COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED')
-# COMPRESS_OFFLINE = os.getenv('COMPRESS_OFFLINE')
-# COMPRESS_PRECOMPILERS = (
-#     ("text/x-sass", "django_libsass.SassCompiler"),
-#     ("text/x-scss", "django_libsass.SassCompiler"),
-# )
-# COMPRESS_FILTERS = {
-#     "css": [
-#         "compressor.filters.css_default.CssAbsoluteFilter",
-#         "compressor.filters.cssmin.rCSSMinFilter",
-#     ],
-#     "js": ["compressor.filters.jsmin.JSMinFilter"],
-# }
-# DEBUG_TEMPLATE = False
 
 # Upload size
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
