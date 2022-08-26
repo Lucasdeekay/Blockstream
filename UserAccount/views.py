@@ -399,8 +399,72 @@ def ref_register(request, ref):
         return HttpResponseRedirect(reverse('UserAccount:dashboard'))
     # If user is not logged in
     else:
-        # display form
-        form = RegistrationForm()
+        # Check if form has been submitted
+        if request.method == 'POST':
+            # Get form
+            form = RegistrationForm(request.POST)
+            # Check if form is valid
+            if form.is_valid():
+                # Collect form data
+                full_name = form.cleaned_data.get('full_name').capitalize().strip()
+                username = form.cleaned_data.get('username').strip()
+                phone_no = form.cleaned_data.get('phone_number').strip()
+                email = form.cleaned_data.get('email').strip()
+                password = form.cleaned_data.get('password').strip()
+                confirm_password = form.cleaned_data.get('confirm_password').strip()
+                referer = request.POST.get('referer').strip()
+
+                # Check if passwords does not match
+                check_password(password, confirm_password)
+
+                # Get all registered clienteles
+                all_clienteles = Clientele.objects.all()
+
+                # Loop through all clienteles to check if user already exists
+                for clientele in all_clienteles:
+                    if username == clientele.user.username:
+                        messages.error(request, "User ID already in use")
+                        return HttpResponseRedirect(reverse('UserAccount:register'))
+                    elif email == clientele.email:
+                        messages.error(request, "Email already in use")
+                        return HttpResponseRedirect(reverse('UserAccount:register'))
+                # If user does not exist
+                else:
+                    # Create a new user
+                    new_user = User.objects.create_user(username=username, email=email, password=password)
+                    # Create a new clientele and link te new user to it
+                    clientele = Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no,
+                                                         email=email)
+                    # Create new account
+                    Account.objects.create(clientele=clientele)
+                    # Check if new user was referred
+                    if referer != '':
+                        # Get the referer
+                        user_referred = get_object_or_404(User, username=referer)
+                        user_referer = get_object_or_404(Clientele, user=user_referred)
+                        # Create a new referer object
+                        Referral.objects.create(user=new_user, referer=user_referer, date=timezone.now())
+
+                    # Create a message to email to user upon successful registration
+                    subject = 'Password Update Successful'
+                    msg = "Registration successful. We look forward toa solid partnership with you at Blockstream. At " \
+                          "Blockstream, we work towards building a world where everyone can succeed. Welcome to the " \
+                          "Blockstream family."
+                    context = {'subject': subject, 'msg': msg}
+                    html_message = render_to_string('useraccount/msg.html', context=context)
+
+                    # Send email
+                    send_mail(subject, msg, EMAIL_HOST_USER, [email], html_message=html_message,
+                              fail_silently=False)
+                    # Notify user that email has been sent
+                    messages.success(request,
+                                     "Registration successful.")
+                    # Redirect to login page
+                    return HttpResponseRedirect(reverse('UserAccount:login'))
+        # If form is not submitted
+        else:
+            # display form
+            form = RegistrationForm()
         # Render registration page
         return render(request, 'useraccount/register.html', {'form': form, 'ref': ref})
 

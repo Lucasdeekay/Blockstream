@@ -18,6 +18,7 @@ router.register('referral', ReferralView)
 
 urlpatterns = [
     path('register', views.register, name='register'),
+    path('register/refer?=<str:ref>', views.ref_register, name='ref_register'),
     path('login', views.log_in, name='login'),
     path('login/forgot-password', views.forgotten_password, name='forgot_password'),
     path('login/forgot-password/<int:clientele_id>/retrieve-password', views.password_retrieval, name='password_retrieval'),
@@ -35,7 +36,6 @@ urlpatterns = [
     path('profit-record', views.profit_record, name='profit_record'),
     path('transaction', views.transaction, name='transaction'),
     path('refer', views.refer, name='refer'),
-    path('refer/<str:ref>', views.ref_register, name='ref_register'),
     path('support', views.support, name='support'),
     path('settings', views.settings, name='settings'),
     path('api/', include(router.urls))
