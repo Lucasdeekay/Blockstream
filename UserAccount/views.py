@@ -1048,12 +1048,20 @@ def approve(request, mode, id):
             account.total_deposit += depo.amount
             account.save()
 
+            bonus = 0.02 * depo.amount
+
             try:
                 # Get referer
                 referer = get_object_or_404(Referral, user=depo.clientele.user)
                 # Add referer bonus
-                referer.bonus += 0.02 * depo.amount
+                referer.bonus += bonus
                 referer.save()
+
+                # Get referer account
+                ref_account = Account.objects.get(clientele=referer.referer)
+                # Add bonus
+                ref_account.balance += bonus
+                ref_account.save()
             except Exception:
                 pass
 
@@ -1123,6 +1131,12 @@ def update_profit(request, id):
         investment.profit += float(amount)
         # Save investment
         investment.save()
+
+        # Get account
+        account = Account.objects.get(clientele=investment.clientele)
+        # Add bonus
+        account.balance += float(amount)
+        account.save()
 
         # Render admin manager page
         return HttpResponseRedirect(reverse('SiteHome:admin_manager'))

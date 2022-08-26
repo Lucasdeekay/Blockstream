@@ -46,7 +46,6 @@ class Account(models.Model):
     def update(self):
         self.total_investments = len(Investment.objects.filter(clientele=self.clientele))
         self.active_investments = len(Investment.objects.filter(clientele=self.clientele, is_active=True))
-        self.balance += sum(Investment.objects.filter(clientele=self.clientele, is_active=True).values_list('profit', flat=True))
         self.profit += sum(Investment.objects.filter(clientele=self.clientele).values_list('profit', flat=True))
         self.total_deposit = sum(Deposit.objects.filter(clientele=self.clientele, is_verified=True).values_list('amount', flat=True))
         self.total_withdrawal = sum(Withdrawal.objects.filter(clientele=self.clientele, is_verified=True).values_list('amount', flat=True))
