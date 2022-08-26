@@ -861,38 +861,42 @@ def settings(request):
 
             # Modify clientele details
             current_clientele.full_name, current_clientele.phone_no, current_clientele.email = full_name, phone_no, email
+            messages.success(request, " Profile successfully updated")
+            # Redirect to login page
+            return HttpResponseRedirect(reverse('UserAccount:settings'))
         # Check if profile form was submitted
-        elif request.method == 'POST':
-            # Get form
-            form = UpdatePasswordForm(request.POST)
-            # Check if form is valid
-            if form.is_valid():
-                # Get form data
-                password1 = form.cleaned_data['password'].strip()
-                password2 = form.cleaned_data['confirm_password'].strip()
-                # Check if password match
-                if password1 == password2:
-                    # Set password for current user
-                    request.user.set_password(password1)
-                    request.user.save()
-                    # Display success message
-                    messages.success(request, 'Password successfully changed')
-                    # Redirect back to page
-                    return HttpResponseRedirect(reverse('UserAccount:settings'))
-                # If password does not match
-                else:
-                    # Display message
-                    messages.error(request, "Password does not match")
-                    # Redirect back to page
-                    return HttpResponseRedirect(reverse('UserAccount:settings'))
-        # If form is not submitted
-        else:
-            # Get form
-            form = UpdatePasswordForm()
-        # Create context
-        context = {'clientele': current_clientele, 'form': form}
-        # Render settings page
-        return render(request, 'useraccount/settings.html', context)
+        elif submit == 'updatePassword':
+            if request.method == 'POST':
+                # Get form
+                form = UpdatePasswordForm(request.POST)
+                # Check if form is valid
+                if form.is_valid():
+                    # Get form data
+                    password1 = form.cleaned_data['password'].strip()
+                    password2 = form.cleaned_data['confirm_password'].strip()
+                    # Check if password match
+                    if password1 == password2:
+                        # Set password for current user
+                        request.user.set_password(password1)
+                        request.user.save()
+                        # Display success message
+                        messages.success(request, 'Password successfully changed')
+                        # Redirect back to page
+                        return HttpResponseRedirect(reverse('UserAccount:settings'))
+                    # If password does not match
+                    else:
+                        # Display message
+                        messages.error(request, "Password does not match")
+                        # Redirect back to page
+                        return HttpResponseRedirect(reverse('UserAccount:settings'))
+            # If form is not submitted
+            else:
+                # Get form
+                form = UpdatePasswordForm()
+            # Create context
+            context = {'clientele': current_clientele, 'form': form}
+            # Render settings page
+            return render(request, 'useraccount/settings.html', context)
     # If user is not logged in
     else:
         # Redirect to login page
