@@ -801,7 +801,7 @@ def transaction(request):
         withdrawal_obj = withdrawal_paginator.get_page(withdrawal_page_number)  # Insert the number of items into page
 
         # Get current clientele referrals
-        referral = Referral.objects.filter(user=request.user).order_by('-date')
+        referral = Referral.objects.filter(referer=current_clientele).order_by('-date')
         referral_paginator = Paginator(referral, 10)  # Show 10 referral per page.
         referral_page_number = request.GET.get('page')  # Get each paginated pages
         referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
