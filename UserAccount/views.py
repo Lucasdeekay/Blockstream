@@ -971,11 +971,14 @@ def approve(request, mode, id):
             account.total_deposit += depo.amount
             account.save()
 
-            # Get referer
-            referer = get_object_or_404(Referral, referer=depo.clientele)
-            # Add referer bonus
-            referer.bonus += 0.02 * depo.amount
-            referer.save()
+            try:
+                # Get referer
+                referer = get_object_or_404(Referral, referer=depo.clientele)
+                # Add referer bonus
+                referer.bonus += 0.02 * depo.amount
+                referer.save()
+            except Exception:
+                pass
 
             # Get referer account
         # Otherwise
