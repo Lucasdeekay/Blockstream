@@ -31,14 +31,14 @@ class Password(models.Model):
 
 class Account(models.Model):
     clientele = models.ForeignKey(Clientele, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    profit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    bonus = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    ref_bonus = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    balance = models.FloatField(default=0)
+    profit = models.FloatField(default=0)
+    bonus = models.FloatField(default=0)
+    ref_bonus = models.FloatField(default=0)
     total_investments = models.IntegerField(default=0)
     active_investments = models.IntegerField(default=0)
-    total_deposit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    total_withdrawal = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_deposit = models.FloatField(default=0)
+    total_withdrawal = models.FloatField(default=0)
 
     def __str__(self):
         return f"{self.clientele} -> {self.balance}"
@@ -59,7 +59,7 @@ class Deposit(models.Model):
         ('BTC', 'BTC'),
         ('USDT', 'USDT'),
     ])
-    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    amount = models.FloatField(default=0)
     date = models.DateTimeField()
     transaction_id = models.CharField(max_length=8)
     tid_confirmed = models.BooleanField(default=False)
@@ -76,7 +76,7 @@ class Withdrawal(models.Model):
         ('BTC', 'BTC'),
         ('USDT', 'USDT'),
     ])
-    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    amount = models.FloatField(default=0)
     wallet = models.CharField(max_length=100, null=True, blank=True)
     date = models.DateTimeField()
     otp = models.CharField(max_length=6)
@@ -89,7 +89,7 @@ class Withdrawal(models.Model):
 
 class Investment(models.Model):
     clientele = models.ForeignKey(Clientele, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    amount = models.FloatField(default=0)
     plan = models.CharField(max_length=10, null=False, choices=[
         ('Basic', 'Basic'),
         ('Silver', 'Silver'),
@@ -129,8 +129,8 @@ class Investment(models.Model):
 class Referral(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)  # User
     referer = models.ForeignKey(Clientele, on_delete=models.CASCADE)  # Person who referred user
-    bonus = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    date = models.DateField()
+    bonus = models.FloatField(default=0)
+    date = models.DateTimeField()
 
     def __str__(self):
         return f"{self.user} -> {self.referer}"
