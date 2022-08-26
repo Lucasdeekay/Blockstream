@@ -588,11 +588,11 @@ def wallet(request, mode):
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Instantiate btc wallet
-        account = 'btckllkjkkjojlk'
+        account = '1EqcAvdZFcqo1hwbeNGyyjYjFLHSfFok45'
         # If mode is usdt
         if mode == 'USDT':
             # Instantiate usdt wallet
-            account = 'usdtbbjjhkjkhk'
+            account = 'TYi9E6LC9P3LTYUhH8YdmFXFePLFd27G9c'
 
         # Create context
         context = {'currency': mode.upper(), 'account': account, 'clientele': current_clientele}

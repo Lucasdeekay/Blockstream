@@ -30,6 +30,10 @@
                                                 <input type="text" class="col-6" disabled style="background-color: #01CD8C; color: white;"
                                                    value="{{ account }}">
                                             </div>
+                                            {% if currency == 'USDT'%}
+                                            <p class="crypto-stitle">Network:</p>
+                                            <p><b>TRC 20</b></p>
+                                            {% endif %}
                                             <p class="crypto-stitle">Currency:</p>
                                             <p><b>{{ currency }}</b></p>
                                             <div class="m-4 p-4">
