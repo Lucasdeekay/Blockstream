@@ -28,10 +28,11 @@
                                             <table class="table cryptodash-tableA col-12">
                                                 <thead>
                                                 <tr>
-                                                    <th class="col-3"><b>Amount</b></th>
-                                                    <th class="col-3"><b>Mode</b></th>
-                                                    <th class="col-3"><b>Date Created</b></th>
-                                                    <th class="col-3" colspan="2"><b></b></th>
+                                                    <th class="col-2"><b>Clientele</b></th>
+                                                    <th class="col-2"><b>Amount</b></th>
+                                                    <th class="col-2"><b>Mode</b></th>
+                                                    <th class="col-2"><b>Date Created</b></th>
+                                                    <th class="col-4" colspan="2"><b></b></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -42,12 +43,13 @@
                                                 {% else %}
                                                 {% for data in deposits %}
                                                 <tr class="border-top">
-                                                    <td class="col-3">${{ data.amount }}</td>
-                                                    <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3">{{ data.date }}</td>
-                                                    <td class="col-3"><a href="{% url 'SiteHome:approve' 'deposit' data.id %}"
+                                                    <th class="col-2"><b>{{ data.clientele }</b></th>
+                                                    <td class="col-2">${{ data.amount }}</td>
+                                                    <td class="col-2">{{ data.mode }}</td>
+                                                    <td class="col-2">{{ data.date }}</td>
+                                                    <td class="col-2"><a href="{% url 'SiteHome:approve' 'deposit' data.id %}"
                                                                          class="btn-sm btn-success">Approve</a></td>
-                                                    <td class="col-3"><a href="{% url 'SiteHome:decline' 'deposit' data.id %}"
+                                                    <td class="col-2"><a href="{% url 'SiteHome:decline' 'deposit' data.id %}"
                                                                          class="btn-sm btn-danger">Decline</a></td>
                                                 </tr>
                                                 {% endfor %}
@@ -75,25 +77,28 @@
                                             <table class="table cryptodash-tableA col-12">
                                                 <thead>
                                                 <tr>
-                                                    <th class="col-3"><b>Amount</b></th>
-                                                    <th class="col-3"><b>Mode</b></th>
-                                                    <th class="col-3"><b>Date Created</b></th>
+                                                    <th class="col-2"><b>Clientele</b></th>
+                                                    <th class="col-2"><b>Amount</b></th>
+                                                    <th class="col-2"><b>Mode</b></th>
+                                                    <th class="col-2"><b>Date Created</b></th>
+                                                    <th class="col-4" colspan="2"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 {% if not withdrawals %}
                                                 <tr class="border-top">
-                                                    <td class="col-3" colspan="4">No Withdrawal available</td>
+                                                    <td class="col-2" colspan="6">No Withdrawal available</td>
                                                 </tr>
                                                 {% else %}
                                                 {% for data in withdrawals %}
                                                 <tr class="border-top">
-                                                    <td class="col-3">${{ data.amount }}</td>
-                                                    <td class="col-3">{{ data.mode }}</td>
-                                                    <td class="col-3">{{ data.date }}</td>
-                                                    <td class="col-3"><a href="{% url 'SiteHome:approve' 'withdrawal' data.id %}"
+                                                    <td class="col-2">{{ data.clientele }}</td>
+                                                    <td class="col-2">${{ data.amount }}</td>
+                                                    <td class="col-2">{{ data.mode }}</td>
+                                                    <td class="col-2">{{ data.date }}</td>
+                                                    <td class="col-2"><a href="{% url 'SiteHome:approve' 'withdrawal' data.id %}"
                                                                          class="btn-sm btn-success">Approve</a></td>
-                                                    <td class="col-3"><a href="{% url 'SiteHome:decline' 'withdrawal' data.id %}"
+                                                    <td class="col-2"><a href="{% url 'SiteHome:decline' 'withdrawal' data.id %}"
                                                                          class="btn-sm btn-danger">Decline</a></td>
                                                 </tr>
                                                 {% endfor %}
@@ -137,12 +142,12 @@
                                                 {% else %}
                                                 {% for data in investments %}
                                                 <tr class="border-top">
-                                                    <td class="col-2">${{ data.clientele }}</td>
+                                                    <td class="col-2">{{ data.clientele }}</td>
                                                     <td class="col-2">{{ data.plan }}</td>
-                                                    <td class="col-2">{{ data.amount }}</td>
+                                                    <td class="col-2">${{ data.amount }}</td>
                                                     <td class="col-2">{{ data.profit }}</td>
                                                     <td class="col-2">
-                                                        <input type="number" name="{{ data.id }}" value="{{ data.amount }}">
+                                                        <input type="number" style="width:80px" name="{{ data.id }}" value="0">
                                                     </td>
                                                     <td class="col-2"><a href="{% url 'SiteHome:update_profit' data.id %}"
                                                                          class="btn-sm btn-success">Update</a></td>
