@@ -1040,7 +1040,7 @@ def update_profit(request, id):
         # Get investment
         investment = get_object_or_404(Investment, id=id)
         # Add profit
-        investment.profit += amount
+        investment.profit += float(amount)
         # Save investment
         investment.save()
 
