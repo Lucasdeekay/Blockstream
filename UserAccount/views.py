@@ -848,6 +848,8 @@ email: {current_clientele.email}
 def settings(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
+        # Get form
+        form = UpdatePasswordForm()
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Get submit data
@@ -898,6 +900,10 @@ def settings(request):
             context = {'clientele': current_clientele, 'form': form}
             # Render settings page
             return render(request, 'useraccount/settings.html', context)
+        # Create context
+        context = {'clientele': current_clientele, 'form': form}
+        # Render settings page
+        return render(request, 'useraccount/settings.html', context)
     # If user is not logged in
     else:
         # Redirect to login page
