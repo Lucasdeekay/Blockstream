@@ -88,7 +88,7 @@ class Withdrawal(models.Model):
 
 class Investment(models.Model):
     clientele = models.ForeignKey(Clientele, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    amount = models.FloatField()
     plan = models.CharField(max_length=10, null=False, choices=[
         ('Basic', 'Basic'),
         ('Silver', 'Silver'),
