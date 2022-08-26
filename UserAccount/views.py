@@ -1050,10 +1050,13 @@ def approve(request, mode, id):
 
             try:
                 # Get referer
+                messages.success(request, "I'm in")
                 referer = get_object_or_404(Referral, referer=depo.clientele)
+                messages.success(request, referer)
                 # Add referer bonus
                 referer.bonus += 0.02 * depo.amount
                 referer.save()
+                messages.success(request, "Saved")
             except Exception:
                 pass
 
