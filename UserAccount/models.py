@@ -88,14 +88,14 @@ class Withdrawal(models.Model):
 
 class Investment(models.Model):
     clientele = models.ForeignKey(Clientele, on_delete=models.CASCADE)
-    amount = models.FloatField()
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
     plan = models.CharField(max_length=10, null=False, choices=[
         ('Basic', 'Basic'),
         ('Silver', 'Silver'),
         ('Gold', 'Gold'),
         ('Platinum', 'Platinum'),
     ])
-    profit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    profit = models.FloatField(default=0)
     date = models.DateTimeField()
     is_active = models.BooleanField(default=False)
 
