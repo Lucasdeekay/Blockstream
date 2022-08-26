@@ -848,13 +848,10 @@ email: {current_clientele.email}
 def settings(request):
     # Check if user is logged in and not a super user
     if request.user.is_authenticated and not request.user.is_superuser:
-        # Get form
-        form = UpdatePasswordForm()
         # Get current clientele
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Get submit data
         submit = request.POST.get('submit')
-        messages.success(request, submit)
         # Check if password form is submitted
         if submit == 'updateProfile':
             # Get form data
@@ -864,6 +861,8 @@ def settings(request):
 
             # Modify clientele details
             current_clientele.full_name, current_clientele.phone_no, current_clientele.email = full_name, phone_no, email
+            current_clientele.save()
+
             messages.success(request, " Profile successfully updated")
             # Redirect to login page
             return HttpResponseRedirect(reverse('UserAccount:settings'))
@@ -883,9 +882,9 @@ def settings(request):
                         request.user.set_password(password1)
                         request.user.save()
                         # Display success message
-                        messages.success(request, 'Password successfully changed')
+                        messages.success(request, 'Password successfully changed. Kindly login with your new paasword')
                         # Redirect back to page
-                        return HttpResponseRedirect(reverse('UserAccount:settings'))
+                        return HttpResponseRedirect(reverse('UserAccount:logout'))
                     # If password does not match
                     else:
                         # Display message
@@ -900,10 +899,13 @@ def settings(request):
             context = {'clientele': current_clientele, 'form': form}
             # Render settings page
             return render(request, 'useraccount/settings.html', context)
-        # Create context
-        context = {'clientele': current_clientele, 'form': form}
-        # Render settings page
-        return render(request, 'useraccount/settings.html', context)
+        else:
+            # Get form
+            form = UpdatePasswordForm()
+            # Create context
+            context = {'clientele': current_clientele, 'form': form}
+            # Render settings page
+            return render(request, 'useraccount/settings.html', context)
     # If user is not logged in
     else:
         # Redirect to login page
