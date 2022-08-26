@@ -1044,6 +1044,9 @@ def update_profit(request, id):
         # Save investment
         investment.save()
 
+        # Render admin manager page
+        return HttpResponseRedirect(reverse('SiteHome:admin_manager'))
+
     # If user is not logged in
     else:
         # Redirect to login page
