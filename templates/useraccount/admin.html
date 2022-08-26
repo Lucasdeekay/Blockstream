@@ -6,15 +6,15 @@
 <!--Header Section-->
 <header class="cryptodash-header cdh-light">
     <nav class="navbar navbar-expand-lg cryptodash-nav">
-        <a class="navbar-brand" href="{% url 'SiteHome:home' %}">
+        <a class="navbar-brand" href="{% url 'SiteHome:home' %}" style="padding-left: 0px">
             <div class="logo" style="width:30px; height:62px; padding-top:10px">
                 <img src="{% static 'useraccount/assets/img/favicon.png' %}" alt="">
-                Blockstream
+                <small>Blockstream</small>
             </div>
         </a>
-        <a id="sideNav-toggle" href=""><span id="main_icon" class="fa fa-bars"></span></a>
+        <a id="sideNav-toggle" href=""><span id="main_icon" class="fa fa-bars" style="margin-left:25px"></span></a>
         <div class="collapse navbar-collapse right-nav mx-3" id="navbarTogglerDemo02">
-            <b>Admin Manager</b>
+            <h3>Admin Manager</h3>
         </div>
     </nav>
 </header>
