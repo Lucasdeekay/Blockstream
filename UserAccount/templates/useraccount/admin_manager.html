@@ -147,10 +147,12 @@
                                                     <td class="col-2">${{ data.amount }}</td>
                                                     <td class="col-2">{{ data.profit }}</td>
                                                     <td class="col-2">
-                                                        <input type="number" style="width:80px; height: 40px" name="amount" value="0">
+                                                        <form action="{% url 'SiteHome:update_profit' data.id %}" method="post">
+                                                            <input type="number" style="width:80px; height: 40px" name="amount" value="0">
+                                                        </form>
                                                     </td>
-                                                    <td class="col-2"><a href="{% url 'SiteHome:update_profit' data.id %}"
-                                                                         class="btn-sm btn-success">Update</a></td>
+                                                    <td class="col-2"><button type="submit"
+                                                                         class="btn-sm btn-success">Update</button></td>
                                                 </tr>
                                                 {% endfor %}
                                                 {% endif %}
