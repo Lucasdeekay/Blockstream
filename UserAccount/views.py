@@ -852,6 +852,7 @@ def settings(request):
         current_clientele = get_object_or_404(Clientele, user=request.user)
         # Get submit data
         submit = request.POST.get('submit')
+        messages.success(request, submit)
         # Check if password form is submitted
         if submit == 'updateProfile':
             # Get form data
