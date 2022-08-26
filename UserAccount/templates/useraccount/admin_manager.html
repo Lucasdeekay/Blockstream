@@ -147,7 +147,7 @@
                                                     <td class="col-2">${{ data.amount }}</td>
                                                     <td class="col-2">{{ data.profit }}</td>
                                                     <td class="col-2">
-                                                        <input type="number" style="width:80px" name="{{ data.id }}" value="0">
+                                                        <input type="number" style="width:80px; height: 40px" name="amount" value="0">
                                                     </td>
                                                     <td class="col-2"><a href="{% url 'SiteHome:update_profit' data.id %}"
                                                                          class="btn-sm btn-success">Update</a></td>
