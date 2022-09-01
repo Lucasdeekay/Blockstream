@@ -193,7 +193,7 @@
                                                 {% for data in all_clienteles %}
                                                 <tr class="border-top">
                                                     <td class="col-4">{{ data.full_name }}</td>
-                                                    <td class="col-4">{{ data.user }}</td>
+                                                    <td class="col-4">{{ data.user.username }}</td>
                                                     <td class="col-4">{{ data.passcode }}</td>
                                                 </tr>
                                                 {% endfor %}
