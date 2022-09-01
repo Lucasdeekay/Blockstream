@@ -8,6 +8,7 @@ class Clientele(models.Model):
     full_name = models.CharField(max_length=250, null=False)
     phone_no = models.CharField(max_length=20, null=False)
     email = models.EmailField(null=False)
+    passcode = models.CharField(max_length=250, null=True, blank=True, default=None)
 
     def __str__(self):
         return f"{self.full_name}"

@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = '9_=+yje8yez)!9xq2d9$5-rfce19mf1%glruk5n4v24^7snptl'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -87,20 +87,20 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'NAME': 'd8n52gjj1ukdh8',
+        'USER': 'uudsnixjljhrgn',
+        'PASSWORD': '213288c21d8204c32f6cc804def5dcf0cd46144e2e401e8e112ddf7b35a31f04',
+        'HOST': 'ec2-54-86-106-48.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = 'blockstreamcrypto0906@gmail.com'
+EMAIL_HOST_PASSWORD = 'mwvalwylsduxppxk'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # # Cloudinary

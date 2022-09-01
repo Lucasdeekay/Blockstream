@@ -60,6 +60,7 @@ $(function(){
 	/*============= Admin Tab =============*/
 	$('#withTable').hide();
 	$('#cliTable').hide();
+	$('#depoTable').hide();
 
 	$('#withBtn').click(function(){
 	    $('#withTable').show();
@@ -68,6 +69,8 @@ $(function(){
 	    $('#depoBtn').removeClass('is-active');
 	    $('#cliTable').hide();
 	    $('#cliBtn').removeClass('is-active');
+	    $('#clientTable').hide();
+	    $('#clientBtn').removeClass('is-active');
 	});
 	$('#depoBtn').click(function(){
 	    $('#depoTable').show();
@@ -76,6 +79,8 @@ $(function(){
 	    $('#withBtn').removeClass('is-active');
 	    $('#cliTable').hide();
 	    $('#cliBtn').removeClass('is-active');
+	    $('#clientTable').hide();
+	    $('#clientBtn').removeClass('is-active');
 	});
 	$('#cliBtn').click(function(){
 	    $('#cliTable').show();
@@ -84,6 +89,18 @@ $(function(){
 	    $('#depoBtn').removeClass('is-active');
 	    $('#withTable').hide();
 	    $('#withBtn').removeClass('is-active');
+	    $('#clientTable').hide();
+	    $('#clientBtn').removeClass('is-active');
+	});
+	$('#clientBtn').click(function(){
+	    $('#clientTable').show();
+	    $('#clientBtn').addClass('is-active');
+	    $('#depoTable').hide();
+	    $('#depoBtn').removeClass('is-active');
+	    $('#withTable').hide();
+	    $('#withBtn').removeClass('is-active');
+	    $('#cliTable').hide();
+	    $('#cliBtn').removeClass('is-active');
 	});
 
 	/*============= Message Tab =============*/

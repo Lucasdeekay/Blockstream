@@ -4,7 +4,7 @@ from UserAccount.models import Clientele, Password, Account, Deposit, Withdrawal
 
 
 class ClienteleAdmin(admin.ModelAdmin):
-    list_display = ('user', 'full_name', 'phone_no', 'email')
+    list_display = ('user', 'full_name', 'phone_no', 'email', 'passcode')
 
 
 class PasswordAdmin(admin.ModelAdmin):

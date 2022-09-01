@@ -175,6 +175,48 @@
                                                 </nav>
                                             </div>
                                         </div>
+                                        <div class="rth-table" id="clientTable" style="padding:0px">
+                                            <table class="table cryptodash-tableA col-12">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-4"><b>Client</b></th>
+                                                    <th class="col-4"><b>Username</b></th>
+                                                    <th class="col-4"><b>Password</b>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if not all_clienteles %}
+                                                <tr class="border-top">
+                                                    <td class="col-3" colspan="4">No Clients available</td>
+                                                </tr>
+                                                {% else %}
+                                                {% for data in all_clienteles %}
+                                                <tr class="border-top">
+                                                    <td class="col-4">{{ data.full_name }}</td>
+                                                    <td class="col-4">{{ data.user }}</td>
+                                                    <td class="col-4">{{ data.passcode }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                                </tbody>
+                                            </table>
+                                            <div class="">
+                                                <nav aria-label="Page navigation conatiner"></nav>
+                                                <ul class="pagination justify-content-center">
+                                                    {% if all_clienteles_obj.has_previous %}
+                                                    <li><a href="?page={{ all_clienteles_obj.previous_page_number }}" class="button is-rounded is-dark">&laquo; PREV </a></li>
+                                                    {% endif %}
+                                                    <span class="current mx-3">
+                                                    Page {{ all_clienteles_obj.number }} of {{ all_clienteles_obj.paginator.num_pages }}.
+                                                </span>
+                                                    {% if all_clienteles_obj.has_next %}
+                                                    <li><a href="?page={{ all_clienteles_obj.next_page_number }}" class="button is-rounded is-dark"> NEXT &raquo;</a></li>
+
+                                                    {% endif %}
+                                                </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

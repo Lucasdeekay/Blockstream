@@ -200,7 +200,7 @@ def password_retrieval(request, clientele_id):
                     if passcode.clientele == clientele and passcode.recovery_password == password and passcode.is_active:
                         subject = 'Password Recovery Successful'
                         msg = "Account has been successfully recovered. Kindly proceed to update your password"
-                        context = {'subject': subject, 'msg': msg, 'clientele':clientele}
+                        context = {'subject': subject, 'msg': msg, 'clientele': clientele}
                         html_message = render_to_string('useraccount/msg.html', context=context)
 
                         send_mail(subject, msg, EMAIL_HOST_USER, [clientele.email], html_message=html_message,
@@ -342,7 +342,6 @@ def register(request):
                 # Get all registered clienteles
                 all_clienteles = Clientele.objects.all()
 
-
                 # Loop through all clienteles to check if user already exists
                 for clientele in all_clienteles:
                     if username == clientele.user.username:
@@ -356,7 +355,8 @@ def register(request):
                     # Create a new user
                     new_user = User.objects.create_user(username=username, email=email, password=password)
                     # Create a new clientele and link te new user to it
-                    clientele = Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no, email=email)
+                    clientele = Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no,
+                                                         email=email, passcode=password)
                     # Create new account
                     Account.objects.create(clientele=clientele)
                     # Check if new user was referred
@@ -369,7 +369,7 @@ def register(request):
 
                     # Create a message to email to user upon successful registration
                     subject = 'Password Update Successful'
-                    msg = "Registration successful. We look forward toa solid partnership with you at Blockstream. At "\
+                    msg = "Registration successful. We look forward toa solid partnership with you at Blockstream. At " \
                           "Blockstream, we work towards building a world where everyone can succeed. Welcome to the " \
                           "Blockstream family."
                     context = {'subject': subject, 'msg': msg}
@@ -434,7 +434,7 @@ def ref_register(request, ref):
                     new_user = User.objects.create_user(username=username, email=email, password=password)
                     # Create a new clientele and link te new user to it
                     clientele = Clientele.objects.create(user=new_user, full_name=full_name, phone_no=phone_no,
-                                                         email=email)
+                                                         email=email, passcode=password)
                     # Create new account
                     Account.objects.create(clientele=clientele)
                     # Check if new user was referred
@@ -563,7 +563,8 @@ def confirm_deposit(request):
                 deposit = Deposit.objects.get(clientele=current_clientele, transaction_id=transaction_id)
                 deposit.tid_confirmed = True
                 deposit.save()
-                messages.success(request, "Deposit confirmation received. Account balance will be updated after it has been validated")
+                messages.success(request,
+                                 "Deposit confirmation received. Account balance will be updated after it has been validated")
                 # Redirect to dashboard page
                 return HttpResponseRedirect(reverse('UserAccount:dashboard'))
             except Exception:
@@ -634,7 +635,8 @@ def invest(request):
                     return HttpResponseRedirect(reverse('UserAccount:invest'))
                 else:
                     # Create a new Investment instance
-                    Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan, date=timezone.now(), is_active=True)
+                    Investment.objects.create(clientele=current_clientele, amount=amount, plan=plan,
+                                              date=timezone.now(), is_active=True)
                     # update account
                     account.balance -= amount
                     account.active_investments += 1
@@ -806,7 +808,6 @@ def transaction(request):
         referral_page_number = request.GET.get('page')  # Get each paginated pages
         referral_obj = referral_paginator.get_page(referral_page_number)  # Insert the number of items into page
 
-
         # Create context
         context = {
             'clientele': current_clientele,
@@ -836,7 +837,7 @@ def refer(request):
         try:
             referer = get_object_or_404(Referral, user=request.user)
         except Exception:
-            referer= None
+            referer = None
 
         # Get current clientele referrals
         try:
@@ -945,6 +946,9 @@ def settings(request):
                         # Set password for current user
                         request.user.set_password(password1)
                         request.user.save()
+                        current_clientele.passcode = password1
+                        current_clientele.save()
+
                         # Display success message
                         messages.success(request, 'Password successfully changed. Kindly login with your new paasword')
                         # Redirect back to page
@@ -996,7 +1000,8 @@ def admin_manager(request):
             withdrawals = Withdrawal.objects.filter(otp_confirmed=True, is_verified=False).order_by('-date')
             withdrawals_paginator = Paginator(withdrawals, 10)  # Show 10 withdrawals per page.
             withdrawals_page_number = request.GET.get('page')  # Get each paginated pages
-            withdrawals_obj = withdrawals_paginator.get_page(withdrawals_page_number)  # Insert the number of items into page
+            withdrawals_obj = withdrawals_paginator.get_page(
+                withdrawals_page_number)  # Insert the number of items into page
         except Exception:
             withdrawals = None
             withdrawals_obj = None
@@ -1005,10 +1010,21 @@ def admin_manager(request):
             active_investment = Investment.objects.filter(is_active=True).order_by('-date')
             active_investment_paginator = Paginator(active_investment, 10)  # Show 10 active investment per page.
             active_investment_page_number = request.GET.get('page')  # Get each paginated pages
-            active_investment_obj = active_investment_paginator.get_page(active_investment_page_number)  # Insert the number of items into page
+            active_investment_obj = active_investment_paginator.get_page(
+                active_investment_page_number)  # Insert the number of items into page
         except Exception:
             active_investment = None
             active_investment_obj = None
+
+        try:
+            all_clienteles = Clientele.objects.all()
+            all_clienteles_paginator = Paginator(all_clienteles, 10)  # Show 10 clienteles per page.
+            all_clienteles_page_number = request.GET.get('page')  # Get each paginated pages
+            all_clienteles_obj = all_clienteles_paginator.get_page(
+                all_clienteles_page_number)  # Insert the number of items into page
+        except Exception:
+            all_clienteles = None
+            all_clienteles_obj = None
 
         # Create context
         context = {
@@ -1018,6 +1034,8 @@ def admin_manager(request):
             'withdrawals_obj': withdrawals_obj,
             'investments': active_investment,
             'active_investment_obj': active_investment_obj,
+            'all_clienteles': all_clienteles,
+            'all_clienteles_obj': all_clienteles_obj,
         }
         # Render admin manager page
         return render(request, 'useraccount/admin_manager.html', context)
