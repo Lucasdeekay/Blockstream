@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.blockstreamcrypto.com']
+ALLOWED_HOSTS = ['www.blockstreamcrypto.com', 'blockstreamcrypto.herokuapp.com']
 
 
 # Application definition
