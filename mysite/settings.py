@@ -24,7 +24,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['www.blockstreamcrypto.com', 'blockstreamcrypto.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
